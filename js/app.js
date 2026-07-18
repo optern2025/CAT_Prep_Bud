@@ -85,12 +85,15 @@ document.addEventListener('DOMContentLoaded', function() {
     checkUserSession: function() {
       const self = this;
       if (!window.supabaseClient) {
-        // No client configured, run in Local-Only/Offline mode
-        document.getElementById('authPage').classList.add('hidden');
-        document.getElementById('syncStatusBadge').innerText = "Offline Mode";
-        document.getElementById('syncStatusBadge').className = "tag tag-rose";
-        document.getElementById('syncModeText').innerText = "Offline (Local-Only)";
-        this.switchPage('dashboard');
+        // Enforce registration locally if offline
+        const localSession = localStorage.getItem('cat_local_user_session');
+        if (localSession) {
+          self.onUserAuthenticated(JSON.parse(localSession));
+        } else {
+          document.getElementById('authPage').classList.remove('hidden');
+          self.authMode = 'register';
+          self.updateAuthUI();
+        }
         return;
       }
 
@@ -98,75 +101,163 @@ document.addEventListener('DOMContentLoaded', function() {
         if (session) {
           self.onUserAuthenticated(session.user);
         } else {
-          // Show authentication portal overlay
           document.getElementById('authPage').classList.remove('hidden');
+          self.authMode = 'register';
+          self.updateAuthUI();
         }
       });
     },
 
     bindAuthEvents: function() {
       const self = this;
-      const btnLogin = document.getElementById('btnAuthLogin');
-      const btnRegister = document.getElementById('btnAuthRegister');
+      this.authMode = 'register'; // Default is Register first
 
-      if (btnLogin) {
-        btnLogin.addEventListener('click', () => {
-          self.handleAuthAction('login');
+      const tabRegister = document.getElementById('tabRegister');
+      const tabLogin = document.getElementById('tabLogin');
+      const btnSubmit = document.getElementById('btnSubmitAuth');
+
+      if (tabRegister) {
+        tabRegister.addEventListener('click', () => {
+          self.authMode = 'register';
+          self.updateAuthUI();
         });
       }
 
-      if (btnRegister) {
-        btnRegister.addEventListener('click', () => {
-          self.handleAuthAction('register');
+      if (tabLogin) {
+        tabLogin.addEventListener('click', () => {
+          self.authMode = 'login';
+          self.updateAuthUI();
         });
+      }
+
+      if (btnSubmit) {
+        btnSubmit.addEventListener('click', () => {
+          self.handleAuthAction(self.authMode);
+        });
+      }
+    },
+
+    updateAuthUI: function() {
+      const tabRegister = document.getElementById('tabRegister');
+      const tabLogin = document.getElementById('tabLogin');
+      const confirmGroup = document.getElementById('confirmPassGroup');
+      const btnSubmit = document.getElementById('btnSubmitAuth');
+      const subtitle = document.getElementById('authSubtitle');
+      const statusMsg = document.getElementById('authStatusMsg');
+
+      if (statusMsg) statusMsg.innerText = '';
+
+      if (this.authMode === 'register') {
+        if (tabRegister) {
+          tabRegister.style.color = 'white';
+          tabRegister.style.borderBottom = '2px solid var(--color-indigo)';
+        }
+        if (tabLogin) {
+          tabLogin.style.color = 'var(--text-muted)';
+          tabLogin.style.borderBottom = '2px solid transparent';
+        }
+        if (confirmGroup) confirmGroup.style.display = 'block';
+        if (btnSubmit) btnSubmit.innerText = 'Register & Access Prep Portal';
+        if (subtitle) subtitle.innerText = 'Aspirant Registration Gate';
+      } else {
+        if (tabRegister) {
+          tabRegister.style.color = 'var(--text-muted)';
+          tabRegister.style.borderBottom = '2px solid transparent';
+        }
+        if (tabLogin) {
+          tabLogin.style.color = 'white';
+          tabLogin.style.borderBottom = '2px solid var(--color-indigo)';
+        }
+        if (confirmGroup) confirmGroup.style.display = 'none';
+        if (btnSubmit) btnSubmit.innerText = 'Log In & Access Prep Portal';
+        if (subtitle) subtitle.innerText = 'Aspirant Login Gate';
       }
     },
 
     handleAuthAction: function(mode) {
       const self = this;
-      if (!window.supabaseClient) {
-        alert("Please set up your Supabase URL and Anon Key under Connection Settings first.");
-        return;
-      }
-
       const email = document.getElementById('authEmail').value.trim();
       const password = document.getElementById('authPassword').value;
+      const confirmPass = document.getElementById('authConfirmPassword')?.value;
+      const statusMsg = document.getElementById('authStatusMsg');
+      const btnSubmit = document.getElementById('btnSubmitAuth');
+
+      if (statusMsg) statusMsg.innerText = '';
 
       if (!email || !password) {
-        alert("Please enter both email and password.");
+        if (statusMsg) statusMsg.innerText = "Please enter both email and password.";
         return;
       }
 
-      const btnLogin = document.getElementById('btnAuthLogin');
-      const btnRegister = document.getElementById('btnAuthRegister');
-      btnLogin.disabled = true;
-      btnRegister.disabled = true;
+      if (mode === 'register' && password !== confirmPass) {
+        if (statusMsg) statusMsg.innerText = "Passwords do not match.";
+        return;
+      }
 
-      if (mode === 'login') {
-        window.supabaseClient.auth.signInWithPassword({ email, password })
-          .then(({ data, error }) => {
-            btnLogin.disabled = false;
-            btnRegister.disabled = false;
-            if (error) {
-              alert("Login failed: " + error.message);
+      if (btnSubmit) btnSubmit.disabled = true;
+
+      // Local Fallback simulation when no client exists
+      if (!window.supabaseClient) {
+        setTimeout(() => {
+          if (btnSubmit) btnSubmit.disabled = false;
+          let users = JSON.parse(localStorage.getItem('cat_local_users') || '{}');
+
+          if (mode === 'register') {
+            if (users[email]) {
+              if (statusMsg) statusMsg.innerText = "Email already registered. Try logging in.";
+              return;
+            }
+            users[email] = password;
+            localStorage.setItem('cat_local_users', JSON.stringify(users));
+
+            const localUser = { email, id: 'local_' + Date.now() };
+            localStorage.setItem('cat_local_user_session', JSON.stringify(localUser));
+            
+            // Seed profile
+            localStorage.setItem('cat_user_profile_details', JSON.stringify({ name: "", email: email, dob: "", workEx: "", field: "Engineering", targetPct: "99.00" }));
+
+            alert("Registration successful! Entering offline session.");
+            self.onUserAuthenticated(localUser);
+          } else {
+            // Login mode
+            if (users[email] && users[email] === password) {
+              const localUser = { email, id: 'local_' + Date.now() };
+              localStorage.setItem('cat_local_user_session', JSON.stringify(localUser));
+              self.onUserAuthenticated(localUser);
             } else {
-              self.onUserAuthenticated(data.user);
-              self.downloadDataFromSupabase(true); // Pull cloud backup immediately
+              if (statusMsg) statusMsg.innerText = "Invalid credentials. Please register first.";
+            }
+          }
+        }, 600);
+        return;
+      }
+
+      // Supabase cloud handling
+      if (mode === 'register') {
+        window.supabaseClient.auth.signUp({ email, password })
+          .then(({ data, error }) => {
+            if (btnSubmit) btnSubmit.disabled = false;
+            if (error) {
+              if (statusMsg) statusMsg.innerText = "Sign up failed: " + error.message;
+            } else {
+              alert("Registration successful! Check your confirmation email.");
+              if (data.user) {
+                // Seed profile
+                localStorage.setItem('cat_user_profile_details', JSON.stringify({ name: "", email: email, dob: "", workEx: "", field: "Engineering", targetPct: "99.00" }));
+                self.onUserAuthenticated(data.user);
+                self.uploadDataToSupabase(true);
+              }
             }
           });
       } else {
-        window.supabaseClient.auth.signUp({ email, password })
+        window.supabaseClient.auth.signInWithPassword({ email, password })
           .then(({ data, error }) => {
-            btnLogin.disabled = false;
-            btnRegister.disabled = false;
+            if (btnSubmit) btnSubmit.disabled = false;
             if (error) {
-              alert("Sign up failed: " + error.message);
+              if (statusMsg) statusMsg.innerText = "Login failed: " + error.message;
             } else {
-              alert("Registration successful! Check your email for verification link, or log in if auto-confirmed.");
-              if (data.user) {
-                self.onUserAuthenticated(data.user);
-                self.uploadDataToSupabase(true); // Seed their profile on cloud
-              }
+              self.onUserAuthenticated(data.user);
+              self.downloadDataFromSupabase(true);
             }
           });
       }
@@ -175,10 +266,25 @@ document.addEventListener('DOMContentLoaded', function() {
     onUserAuthenticated: function(user) {
       document.getElementById('authPage').classList.add('hidden');
       
-      document.getElementById('syncStatusBadge').innerText = "Cloud Synced";
-      document.getElementById('syncStatusBadge').className = "tag tag-indigo";
-      document.getElementById('syncUserEmail').innerText = user.email;
-      document.getElementById('syncModeText').innerText = "Connected to Supabase";
+      const badge = document.getElementById('syncStatusBadge');
+      const modeText = document.getElementById('syncModeText');
+      const userText = document.getElementById('syncUserEmail');
+
+      if (userText) userText.innerText = user.email;
+
+      if (!window.supabaseClient) {
+        if (badge) {
+          badge.innerText = "Offline Mode";
+          badge.className = "tag tag-rose";
+        }
+        if (modeText) modeText.innerText = "Offline (Local-Only)";
+      } else {
+        if (badge) {
+          badge.innerText = "Cloud Synced";
+          badge.className = "tag tag-indigo";
+        }
+        if (modeText) modeText.innerText = "Connected to Supabase";
+      }
       
       this.currentUser = user;
       this.switchPage('dashboard');

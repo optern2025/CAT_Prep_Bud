@@ -20,27 +20,34 @@
       <div class="auth-header">
         <div class="auth-brand-icon">CP</div>
         <h3>CAT Prep Buddy</h3>
-        <p>Aspirant Authentication Portal</p>
+        <p id="authSubtitle">Aspirant Registration Gate</p>
+      </div>
+
+      <div style="display: flex; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 1.5rem; gap: 0.5rem;">
+        <button id="tabRegister" style="flex: 1; padding: 0.5rem; background: none; border: none; border-bottom: 2px solid var(--color-indigo); color: white; font-weight: 700; cursor: pointer; outline: none; transition: all 0.2s;">Register</button>
+        <button id="tabLogin" style="flex: 1; padding: 0.5rem; background: none; border: none; border-bottom: 2px solid transparent; color: var(--text-muted); font-weight: 700; cursor: pointer; outline: none; transition: all 0.2s;">Log In</button>
       </div>
       
       <div class="auth-form-group">
         <label for="authEmail">Email Address:</label>
-        <input type="email" id="authEmail" class="auth-input" placeholder="enter your email...">
+        <input type="email" id="authEmail" class="auth-input" placeholder="aspirant@iim.edu">
       </div>
       
       <div class="auth-form-group">
         <label for="authPassword">Password:</label>
         <input type="password" id="authPassword" class="auth-input" placeholder="••••••••">
       </div>
+
+      <div class="auth-form-group" id="confirmPassGroup">
+        <label for="authConfirmPassword">Confirm Password:</label>
+        <input type="password" id="authConfirmPassword" class="auth-input" placeholder="••••••••">
+      </div>
       
-      <div class="auth-actions">
-        <button class="btn btn-primary" id="btnAuthLogin" style="width: 100%; padding: 0.75rem;">Log In</button>
-        <button class="btn btn-secondary" id="btnAuthRegister" style="width: 100%; padding: 0.75rem; margin-top: 0.5rem;">Create Account</button>
+      <div class="auth-actions" style="margin-top: 1.5rem;">
+        <button class="btn btn-primary" id="btnSubmitAuth" style="width: 100%; padding: 0.75rem; font-weight: 700;">Register & Access Prep Portal</button>
       </div>
 
-      <div class="auth-toggle-link" id="authToggleLink">
-        Don't have an account? Click Create Account above.
-      </div>      
+      <div id="authStatusMsg" style="margin-top: 1rem; font-size: 0.8rem; text-align: center; color: var(--color-rose-light);"></div>
     </div>
   </div>
 
