@@ -6,48 +6,76 @@ window.CAT_SYLLABUS = {
       "Arithmetic": [
         "Percentages",
         "Ratio & Proportion",
-        "Average",
+        "Averages",
         "Profit & Loss",
-        "Time Work",
-        "Time Speed Distance",
         "Simple Interest",
         "Compound Interest",
-        "Mixtures"
+        "Partnership",
+        "Mixtures & Alligation",
+        "Time & Work",
+        "Pipes & Cisterns",
+        "Time Speed Distance",
+        "Boats & Streams",
+        "Trains",
+        "Circular Motion",
+        "Relative Speed",
+        "Races",
+        "Ages",
+        "Clocks & Calendars"
       ],
       "Algebra": [
-        "Linear Equation",
-        "Quadratic Equation",
-        "Inequality",
-        "Logarithm",
+        "Linear Equations",
+        "Quadratic Equations",
+        "Polynomials",
+        "Inequalities",
+        "Absolute Value",
+        "Logarithms",
         "Exponents",
-        "Progression",
+        "Surds",
+        "Progressions",
         "Functions",
         "Graphs",
-        "Maxima Minima"
+        "Maxima Minima",
+        "Algebraic Identities"
       ],
       "Number Systems": [
-        "Divisibility",
         "Factors",
+        "Multiples",
+        "Divisibility",
         "Prime Numbers",
+        "Composite Numbers",
+        "HCF",
+        "LCM",
         "Remainders",
+        "Modular Arithmetic",
+        "Cyclicity",
         "Last Digit",
         "Base System",
+        "Digital Root",
+        "Perfect Squares",
+        "Perfect Cubes",
+        "Factorials",
         "Integer Properties"
       ],
       "Geometry": [
-        "Triangle",
-        "Circle",
-        "Quadrilateral",
-        "Polygon",
+        "Lines & Angles",
+        "Triangles",
+        "Circles",
+        "Quadrilaterals",
+        "Polygons",
         "Coordinate Geometry",
-        "Mensuration"
+        "Mensuration 2D",
+        "Mensuration 3D",
+        "Trigonometric Basics"
       ],
-      "Modern Math": [
-        "Permutation",
-        "Combination",
+      "Modern Mathematics": [
+        "Permutations",
+        "Combinations",
         "Probability",
         "Set Theory",
-        "Sequence"
+        "Venn Diagram",
+        "Binomial Basics",
+        "Sequences"
       ]
     }
   },
@@ -118,138 +146,309 @@ window.CAT_SYLLABUS = {
 // 99.99+ QA Pattern Framework Registry
 window.CAT_QA_PATTERNS = {
   "Percentages": [
-    { name: "Basic Percentage", difficulty: "Level 1", concepts: "Direct percentage calculations: Part/Whole * 100", tricks: "Use fractions instead of decimals (e.g. 16.66% = 1/6, 12.5% = 1/8).", variations: "Candidate scores vs passing marks comparisons.", hybrid: "Percentage of a ratio comparison." },
-    { name: "Successive Percentage Change", difficulty: "Level 2", concepts: "Net change = a + b + ab/100 for two successive changes.", tricks: "If a value is increased by x% and then decreased by x%, the net change is always a decrease of (x/10)%.", variations: "Three successive changes (compounding population/price).", hybrid: "Successive discount applied to list price equations." },
-    { name: "Reverse Percentage", difficulty: "Level 2 / 3", concepts: "Final value given; solve back to find the initial value.", tricks: "Use multipliers (e.g., a 20% increase is a multiplier of 1.20; to reverse it, divide by 1.20).", variations: "Price-consumption adjustments (Price * Consumption = Expenditure).", hybrid: "Algebraic equations with variable reverse percentages." },
-    { name: "Net Percentage Change", difficulty: "Level 2", concepts: "Evaluating single consolidated percentage deviation from initial baseline.", tricks: "Assume base value of 100 to quickly apply changes consecutively.", variations: "Revenue change given price change and sales volume change.", hybrid: "Area of rectangle changes when length/breadth change." },
-    { name: "Equivalent Percentage", difficulty: "Level 3", concepts: "Relating percentages across different bases.", tricks: "Set up equations by converting percentages to common variables.", variations: "Comparing tax slabs or marks weightage in multiple subjects.", hybrid: "Percentage weighted averages." },
-    { name: "Population Growth", difficulty: "Level 3", concepts: "Compounding growth: P_t = P_0 * (1 + r/100)^t.", tricks: "For small rates, linear approximations can be used to eliminate choices.", variations: "Variable annual growth rates.", hybrid: "Population growth coupled with migrations (Arithmetic subtraction)." },
-    { name: "Depreciation", difficulty: "Level 3", concepts: "Compounding decline: V_t = V_0 * (1 - r/100)^t.", tricks: "Multipliers less than 1. (e.g., 10% depreciation = 0.9 multiplier).", variations: "Machine value depreciation after multi-year wear.", hybrid: "Mixture replacements (pure liquid left in container)." },
-    { name: "Income-Expenditure", difficulty: "Level 4", concepts: "Income = Expenditure + Savings.", tricks: "Assume Income = 100 and construct a branching tree diagram for expenses.", variations: "Shifting income and savings percentages simultaneously.", hybrid: "Savings increments modeled via linear equations." },
-    { name: "Profit Percentage via Percentage Logic", difficulty: "Level 3 / 4", concepts: "Calculating profits using pure percentages rather than currency values.", tricks: "Profit is simply the net percentage increase on the cost price.", variations: "Profit percentage comparisons between distinct items.", hybrid: "Quantity discount percentages." },
-    { name: "Mixture Percentage", difficulty: "Level 3 / 4", concepts: "Determining concentration shifts in compound mixtures.", tricks: "Equate the absolute quantity of the solute/component that is NOT being added/removed.", variations: "Adding pure solvent to dilute a mixture.", hybrid: "Percentages + alligation ratios." },
-    { name: "Weighted Percentage", difficulty: "Level 4", concepts: "consolidated percentage = (w1*p1 + w2*p2) / (w1+w2).", tricks: "Use deviation from a baseline to quickly compute.", variations: "Exam weightage components.", hybrid: "Mixture concentration averages." },
-    { name: "Percentage in Tables (DI-based)", difficulty: "Level 4", concepts: "Extracting raw numbers from table grids and calculating growth/share percentages.", tricks: "Focus on approximation of fractions (e.g., 432/987 ≈ 44%).", variations: "Year-on-year growth analysis.", hybrid: "DI calculations with average calculations." },
-    { name: "Percentage + Ratio Hybrid", difficulty: "Level 4 / 5", concepts: "Converting ratios to percentages and vice-versa in complex system flows.", tricks: "Equate constants across formats. (e.g., 2:3 ratio is 40% vs 60%).", variations: "Multi-partner firm allocations.", hybrid: "Algebraic equations with percentage weights." },
-    { name: "Percentage + Algebra", difficulty: "Level 5", concepts: "Percentages expressed as functions of algebraic variables.", tricks: "Formulate quadratic or linear equations from percentage statements.", variations: "Sales revenue optimization under tax rates.", hybrid: "Logarithmic scaling of percentages." },
-    { name: "Hidden Percentage", difficulty: "Level 5", concepts: "Non-routine problems where percentages are hidden in word layouts.", tricks: "Translate word statements to mathematical equations step-by-step.", variations: "Complex game scores or tournament eliminations.", hybrid: "Modern math sets." }
+    { name: "Basic Percentage", difficulty: "Level 1", concepts: "Part/Whole * 100", tricks: "Use fractions (e.g. 1/6 = 16.67%, 1/8 = 12.5%).", variations: "Marks vs pass margins.", hybrid: "Percentage + Ratio comparisons." },
+    { name: "Fraction ↔ Percentage", difficulty: "Level 1 / 2", concepts: "Fractions up to 1/20 equivalents.", tricks: "Memorize reciprocal values to solve percentages instantly.", variations: "Direct conversions.", hybrid: "Percentage + Ratio conversions." },
+    { name: "Percentage Increase", difficulty: "Level 2", concepts: "Change / Original * 100.", tricks: "Multiplier = 1 + r/100.", variations: "Salary increments.", hybrid: "Percentage Increase + algebra equations." },
+    { name: "Percentage Decrease", difficulty: "Level 2", concepts: "Change / Original * 100.", tricks: "Multiplier = 1 - r/100.", variations: "Salary cuts.", hybrid: "Percentage Decrease + algebra equations." },
+    { name: "Successive Percentage", difficulty: "Level 3", concepts: "Net change = a + b + ab/100.", tricks: "x% increase followed by x% decrease is always x²/100% decrease.", variations: "Three successive changes.", hybrid: "Successive discounts." },
+    { name: "Reverse Percentage", difficulty: "Level 3", concepts: "Initial = Final / Multiplier.", tricks: "Divide directly by base multiplier.", variations: "Price-consumption adjustments.", hybrid: "Percentage + Algebra." },
+    { name: "Equivalent Percentage", difficulty: "Level 3", concepts: "Equating changes across different bases.", tricks: "Find base variable relations.", variations: "Tax slab comparisons.", hybrid: "Weighted percentage averages." },
+    { name: "Percentage Difference", difficulty: "Level 2 / 3", concepts: "Delta between two percentage metrics.", tricks: "Subtract percentages before scaling to absolute values.", variations: "Election vote shares.", hybrid: "Percentage + Ratio differences." },
+    { name: "Net Percentage Change", difficulty: "Level 3", concepts: "consolidated percentage shift.", tricks: "Use base 100 for fast calculations.", variations: "Volume shifts.", hybrid: "Area updates (length/breadth changes)." },
+    { name: "Population Growth", difficulty: "Level 3", concepts: "P_t = P_0 * (1 + r/100)^t.", tricks: "Use linear approximations for small rates.", variations: "Varying annual growth rates.", hybrid: "Growth + migrations." },
+    { name: "Depreciation", difficulty: "Level 3", concepts: "V_t = V_0 * (1 - r/100)^t.", tricks: "Use compounding factor less than 1.", variations: "Machine wear.", hybrid: "Mixture replacements." },
+    { name: "Income–Expenditure", difficulty: "Level 4", concepts: "Income = Expenditure + Savings.", tricks: "Assume income = 100 and branch out savings.", variations: "Shifting savings ratios.", hybrid: "Income + Algebra optimization." },
+    { name: "Weighted Percentage", difficulty: "Level 4", concepts: "Weighted mean of percentages.", tricks: "Use deviations from assumed mean.", variations: "Exam weightage parameters.", hybrid: "Mixture concentration averages." },
+    { name: "Percentage Comparison", difficulty: "Level 2 / 3", concepts: "Relating differences as percentages.", tricks: "If A is x% more than B, B is [x/(100+x)]*100% less than A.", variations: "Height comparisons.", hybrid: "Ratio comparisons." },
+    { name: "Hidden Percentage", difficulty: "Level 4 / 5", concepts: "Percentages hidden in word layouts.", tricks: "Translate text to fractional weights.", variations: "Sports tournament rates.", hybrid: "Percentages + Probability." },
+    { name: "Percentage Equation", difficulty: "Level 4 / 5", concepts: "Algebraic equations from percentages.", tricks: "Convert percentages to decimal multipliers.", variations: "Firm revenue models.", hybrid: "Algebraic constraints." }
   ],
   "Ratio & Proportion": [
-    { name: "Simple & Continued Ratio", difficulty: "Level 1 / 2", concepts: "Combining A:B and B:C to find A:B:C.", tricks: "Make B equal in both ratios by taking the LCM.", variations: "4-variable chain ratios.", hybrid: "Partnership capital allocations." },
-    { name: "Direct & Inverse Variation", difficulty: "Level 2 / 3", concepts: "y = kx or y = k/x.", tricks: "Identify constant parameters to solve for k instantly.", variations: "Joint variations with powers.", hybrid: "Speed-Time inverse relationship." },
-    { name: "Partnership", difficulty: "Level 3", concepts: "Profit ratio = (Capital1 * Time1) : (Capital2 * Time2).", tricks: "If capital changes mid-term, sum up products of capital * months.", variations: "Active vs sleeping partners (salary deduction).", hybrid: "Partnerships with percentage changes." },
-    { name: "Distribution", difficulty: "Level 3", concepts: "Dividing a total sum into ratios.", tricks: "Value of one part = Total / Sum of ratio parts.", variations: "Coins of different denominations.", hybrid: "Linear equation setups." },
-    { name: "Replacement Ratio", difficulty: "Level 4 / 5", concepts: "Liquid concentrations after swapping quantities.", tricks: "Focus on the ratio of remaining original liquid.", variations: "Multiple dilutions.", hybrid: "Alligation cross." }
+    { name: "Basic Ratio", difficulty: "Level 1", concepts: "A:B relations.", tricks: "Scale up/down using a common factor.", variations: "Simplifying large values.", hybrid: "Ratio + Algebra." },
+    { name: "Equivalent Ratio", difficulty: "Level 2", concepts: "Equating ratios across bases.", tricks: "LCM of common variable to stitch ratios.", variations: "3-variable combinations.", hybrid: "Capital distributions." },
+    { name: "Compound Ratio", difficulty: "Level 2", concepts: "Product of corresponding terms: (a/b) * (c/d).", tricks: "Multiply individual fractional values.", variations: "Combined weights.", hybrid: "Compound ratio + percentage." },
+    { name: "Continued Ratio", difficulty: "Level 3", concepts: "Stitching A:B, B:C, C:D together.", tricks: "LCM of intermediate values.", variations: "4-variable chain ratios.", hybrid: "Partnership capital allocations." },
+    { name: "Direct Proportion", difficulty: "Level 2 / 3", concepts: "y = kx.", tricks: "Calculate k instantly from initial state.", variations: "Wage variations.", hybrid: "Ratio + Time Work." },
+    { name: "Inverse Proportion", difficulty: "Level 3", concepts: "y = k/x.", tricks: "y1 * x1 = y2 * x2.", variations: "Speed vs Time inverse.", hybrid: "Ratio + TSD." },
+    { name: "Variation", difficulty: "Level 3", concepts: "y varies with multiple parameters.", tricks: "Write y1*z1/x1 = y2*z2/x2.", variations: "Volume variations.", hybrid: "Geometry scaling." },
+    { name: "Distribution", difficulty: "Level 3", concepts: "Dividing total sum into ratios.", tricks: "1 part value = Total / Sum of parts.", variations: "Coin count distributions.", hybrid: "Linear equation setups." },
+    { name: "Replacement", difficulty: "Level 4 / 5", concepts: "Swapping liquid volumes.", tricks: "Focus on component that is not added.", variations: "dilution rounds.", hybrid: "Ratio + Mixture combinations." },
+    { name: "Ratio Changes", difficulty: "Level 3 / 4", concepts: "Adjusting ratios when values shift.", tricks: "Use constant difference logic.", variations: "Class size shifts.", hybrid: "Ratio + Percentage changes." },
+    { name: "Ages", difficulty: "Level 2", concepts: "Difference of ages remains constant.", tricks: "Equate difference between terms in ratios.", variations: "Father-son ratios.", hybrid: "Ages + Linear Equations." },
+    { name: "Partnership", difficulty: "Level 3", concepts: "Profit ratio = Capital*Time ratio.", tricks: "Sum up capital * month products.", variations: "Active partners salary.", hybrid: "Partnership + Ratios." },
+    { name: "Weighted Ratio", difficulty: "Level 4", concepts: "Averages weighted by ratios.", tricks: "Deviation from baseline.", variations: "Mixture concentrations.", hybrid: "Weighted ratio + algebra." }
   ],
-  "Average": [
-    { name: "Simple & Weighted Average", difficulty: "Level 1 / 2", concepts: "Weighted Avg = (n1*x1 + n2*x2) / (n1+n2).", tricks: "Use deviations from an assumed mean to simplify calculations.", variations: "Section marks averages.", hybrid: "Mixture concentrations." },
-    { name: "Replacement Average", difficulty: "Level 3 / 4", concepts: "Average shift when an element is replaced.", tricks: "New Value = Old Value + (Total Count * Change in Average).", variations: "Batting average increments.", hybrid: "Algebraic average equations." }
+  "Averages": [
+    { name: "Simple Average", difficulty: "Level 1", concepts: "Sum / Count.", tricks: "Assume base mean to find offset sum.", variations: "Class averages.", hybrid: "Average + Ratio." },
+    { name: "Weighted Average", difficulty: "Level 2 / 3", concepts: "Weighted mean = (n1*x1 + n2*x2)/(n1+n2).", tricks: "Use deviations from assumed mean.", variations: "Class marks.", hybrid: "Average + Ratio proportions." },
+    { name: "Running Average", difficulty: "Level 3", concepts: "Average updates after new items.", tricks: "New Value = New Sum - Old Sum.", variations: "Monthly expenses.", hybrid: "Average + Algebra." },
+    { name: "Missing Average", difficulty: "Level 3", concepts: "Deducting known values from average sum.", tricks: "Missing sum = Total Sum - Known Sum.", variations: "Scores list.", hybrid: "Average + Algebra." },
+    { name: "Replacement Average", difficulty: "Level 3 / 4", concepts: "Group shifts when swapping elements.", tricks: "New Value = Old Value + (Count * Average Shift).", variations: "Ages of crew.", hybrid: "Average + Percentage changes." },
+    { name: "Combined Average", difficulty: "Level 3", concepts: "Merging distinct averages.", tricks: "Scale sum totals before adding.", variations: "Merged divisions.", hybrid: "Average + Algebra." },
+    { name: "Group Average", difficulty: "Level 4", concepts: "Splitting group averages.", tricks: "deviation check.", variations: "Team statistics.", hybrid: "Group average + ratio." },
+    { name: "Average Speed", difficulty: "Level 3 / 4", concepts: "Total Distance / Total Time.", tricks: "For equal distances: 2*s1*s2/(s1+s2).", variations: "Round trips.", hybrid: "Average + TSD." }
   ],
   "Profit & Loss": [
-    { name: "Marked Price & Discounts", difficulty: "Level 2 / 3", concepts: "CP/MP = (100 - D%) / (100 + P%).", tricks: "Apply standard fractions to markups and discounts.", variations: "Successive discounts.", hybrid: "Commercial arithmetic." },
-    { name: "Dishonest Dealer & False Weight", difficulty: "Level 3 / 4", concepts: "Profit% = (True - False) / False * 100.", tricks: "Treat false weight as CP and true weight as SP.", variations: "Cheating during buying and selling.", hybrid: "Algebraic discounts." }
-  ],
-  "Time Work": [
-    { name: "Individual & Combined Efficiency", difficulty: "Level 2 / 3", concepts: "Work = Efficiency * Time.", tricks: "Use LCM of individual times as total work units.", variations: "Alternate days working.", hybrid: "Wages distribution." },
-    { name: "Pipes & Cisterns with Leakage", difficulty: "Level 3 / 4", concepts: "Inlet rate (+), Outlet rate (-).", tricks: "Leaks act as negative work pipes.", variations: "Open/close sequences.", hybrid: "TSD flow rates." }
-  ],
-  "Time Speed Distance": [
-    { name: "Relative Speed & Trains", difficulty: "Level 2 / 3", concepts: "Relative speed = S1 ± S2.", tricks: "Relative speed is '-' for same direction, '+' for opposite.", variations: "Trains crossing platforms.", hybrid: "Circular tracks." },
-    { name: "Circular Tracks & Races", difficulty: "Level 4 / 5", concepts: "First meeting time = Circumference / Rel Speed.", tricks: "First meeting at start point = LCM of individual times.", variations: "Races with head starts.", hybrid: "Geometry pathways." }
+    { name: "Cost Price", difficulty: "Level 1", concepts: "CP = SP - Profit.", tricks: "Base value of transaction.", variations: "Manufacturing cost.", hybrid: "CP + Algebra." },
+    { name: "Selling Price", difficulty: "Level 1", concepts: "SP = CP + Profit.", tricks: "Final revenue value.", variations: "Sales revenue.", hybrid: "SP + Ratio." },
+    { name: "Marked Price", difficulty: "Level 2", concepts: "MP = CP * (1 + Markup%).", tricks: "Base value for discounts.", variations: "Catalog prices.", hybrid: "MP + Algebra." },
+    { name: "Discount", difficulty: "Level 2", concepts: "Discount = MP - SP.", tricks: "D% is always calculated on MP.", variations: "Promo offers.", hybrid: "Discount + Ratio." },
+    { name: "Successive Discount", difficulty: "Level 3", concepts: "Net discount = d1+d2 - d1*d2/100.", tricks: "Convert to multipliers less than 1.", variations: "BOGO offers.", hybrid: "Discount + Algebra setups." },
+    { name: "Profit Percentage", difficulty: "Level 2", concepts: "Profit / CP * 100.", tricks: "Always calculated on CP.", variations: "Retail margins.", hybrid: "Profit + Percentage." },
+    { name: "Loss Percentage", difficulty: "Level 2", concepts: "Loss / CP * 100.", tricks: "Always calculated on CP.", variations: "Retail losses.", hybrid: "Loss + Percentage." },
+    { name: "False Weight", difficulty: "Level 3", concepts: "CP based on false weight.", tricks: "Gain = (Error / True Value - Error) * 100.", variations: "Grams cheating.", hybrid: "False Weight + Ratio." },
+    { name: "Dishonest Dealer", difficulty: "Level 3 / 4", concepts: "Cheating on weight to inflate profits.", tricks: "Treat false weight as CP and true weight as SP.", variations: "Cheating on both buying and selling.", hybrid: "Profit + Percentage." },
+    { name: "Tax", difficulty: "Level 3", concepts: "Tax added on SP.", tricks: "Calculate tax on final SP.", variations: "VAT.", hybrid: "Tax + Algebra." },
+    { name: "GST", difficulty: "Level 3", concepts: "GST slabs on products.", tricks: "Calculate GST on post-discount SP.", variations: "Slab rates.", hybrid: "GST + Algebra." },
+    { name: "Multiple Transactions", difficulty: "Level 4", concepts: "A sells to B, B sells to C.", tricks: "Multiply multipliers consecutively.", variations: "Trade chains.", hybrid: "Profit + SI/CI." }
   ],
   "Simple Interest": [
-    { name: "Basic SI & Parameter Finding", difficulty: "Level 1 / 2", concepts: "SI = PRT/100.", tricks: "SI is constant year-on-year; analyze interest increments.", variations: "Splitting investments.", hybrid: "Linear progressions." }
+    { name: "Basic SI & Parameter Unknowns", difficulty: "Level 1 / 2", concepts: "SI = PRT/100.", tricks: "SI is linear and constant every year.", variations: "Splitting principal.", hybrid: "SI + AP series progression." }
   ],
   "Compound Interest": [
-    { name: "Difference SI/CI & Installments", difficulty: "Level 3 / 4", concepts: "Difference for 2 yrs = P(r/100)².", tricks: "Use compound factor multipliers (e.g. 10% = 1.1).", variations: "Quarterly compounding.", hybrid: "Installments equations." }
+    { name: "Difference SI/CI & Installments", difficulty: "Level 3 / 4", concepts: "A = P*(1+r/k)^(kt).", tricks: "2-year difference = P*(r/100)².", variations: "Quarterly compounding.", hybrid: "Installments equations." }
   ],
-  "Mixtures": [
-    { name: "Alligation & Replacements", difficulty: "Level 3 / 4", concepts: "Ratio = (Cheaper - Mean) / (Mean - Dearer).", tricks: "Visualize concentrations on a line scale to find midpoints.", variations: "Three liquids.", hybrid: "Alligation in finance." }
+  "Partnership": [
+    { name: "Profit distribution", difficulty: "Level 2 / 3", concepts: "Profit ratio = Capital*Time ratio.", tricks: "Sum up capital * month products.", variations: "Active partners salary.", hybrid: "Partnership + Ratios." }
   ],
-  "Linear Equation": [
-    { name: "Simultaneous Equations & Word Problems", difficulty: "Level 2 / 3", concepts: "Solving linear systems.", tricks: "Verify options directly for integer constraint systems.", variations: "Coin count puzzles.", hybrid: "Graph intersections." }
+  "Mixtures & Alligation": [
+    { name: "Alligation", difficulty: "Level 3", concepts: "Ratio = (Dearer-Mean)/(Mean-Cheaper).", tricks: "Visualize concentrations on line scales.", variations: "3-solution mixtures.", hybrid: "Mixtures + Percentage." },
+    { name: "Replacement", difficulty: "Level 4", concepts: "liquid replacements.", tricks: "Liquid left = Initial * (1 - x/V)^n.", variations: "Multi-replacements.", hybrid: "Replacement + Ratio." },
+    { name: "Concentration", difficulty: "Level 3", concepts: "Solute / Solution * 100.", tricks: "Equate solute weight.", variations: "Acid dilutions.", hybrid: "Mixture + Algebra." }
   ],
-  "Quadratic Equation": [
-    { name: "Roots, Nature & Sum-Product Relations", difficulty: "Level 2 / 3", concepts: "Sum = -b/a, Product = c/a.", tricks: "α² + β² = (α+β)² - 2αβ.", variations: "Parameter limits.", hybrid: "Max/Min (Vertex = -b/2a)." }
+  "Time & Work": [
+    { name: "Individual Efficiency", difficulty: "Level 2", concepts: "Work = Efficiency * Time.", tricks: "LCM of times is total work.", variations: "Days to complete.", hybrid: "Work + Ratio." },
+    { name: "Combined Work", difficulty: "Level 2 / 3", concepts: "Sum of rates.", tricks: "A+B together = (A*B)/(A+B).", variations: "Group tasks.", hybrid: "Work + Algebra." },
+    { name: "Alternate Days", difficulty: "Level 3", concepts: "Working in cycles.", tricks: "Find work done in 1 cycle (e.g. 2 days).", variations: "A starts vs B starts.", hybrid: "Alternate + Ratio." },
+    { name: "Variable Efficiency", difficulty: "Level 3 / 4", concepts: "Efficiency changes over time.", tricks: "Form equations matching units.", variations: "Illness slows rate.", hybrid: "Work + Algebra." },
+    { name: "Men Women Children", difficulty: "Level 3 / 4", concepts: "Varying capacity of gender groups.", tricks: "Convert groups to a single standard unit.", variations: "Contract penalties.", hybrid: "Work + Algebra." },
+    { name: "Machines", difficulty: "Level 3", concepts: "Machine output per hour.", tricks: "Treat machines as workers.", variations: "Factory outputs.", hybrid: "Work + TSD." },
+    { name: "Pipes", difficulty: "Level 2 / 3", concepts: "Inlet rate (+) vs outlet (-).", tricks: "LCM of fill times.", variations: "Multiple inlets.", hybrid: "Pipes + Alligation." },
+    { name: "Leakage", difficulty: "Level 3", concepts: "Negative work rates.", tricks: "Leaks act as negative efficiency pipes.", variations: "Tanks leaking.", hybrid: "Pipes + Alligation." },
+    { name: "Fractional Work", difficulty: "Level 3", concepts: "Completing fractions of projects.", tricks: "Scale total units to match fractions.", variations: "Leaving mid-way.", hybrid: "Work + Ratio." },
+    { name: "Work Wages", difficulty: "Level 3", concepts: "Wages proportional to work done.", tricks: "Wages = Share of work * Total wage.", variations: "Unequal days.", hybrid: "Wages + Ratio." },
+    { name: "Negative Work", difficulty: "Level 4", concepts: "Destroying work already done.", tricks: "Subtract rates of destruction.", variations: "Building vs breaking wall.", hybrid: "Work + Probability." }
   ],
-  "Inequality": [
-    { name: "Modulus & Wavy Curve Method", difficulty: "Level 3 / 4", concepts: "Critical points on number line.", tricks: "Test signs in alternating regions between roots.", variations: "Modulus intervals.", hybrid: "Domain restrictions." }
+  "Pipes & Cisterns": [
+    { name: "Leakage & Flow rates", difficulty: "Level 2 / 3", concepts: "Inlet (+) vs outlet (-).", tricks: "Leaks act as negative efficiency pipes.", variations: "Overlapping timelines.", hybrid: "Pipes + Alligation." }
   ],
-  "Logarithm": [
-    { name: "Log Laws & Base Change Rules", difficulty: "Level 2 / 3", concepts: "log(ab) = log a + log b.", tricks: "Reduce bases to prime factors to simplify exponents.", variations: "Log equations.", hybrid: "AGP logs." }
+  "Time Speed Distance": [
+    { name: "Uniform Speed", difficulty: "Level 1 / 2", concepts: "Speed = Distance / Time.", tricks: "Check units: 1 km/h = 5/18 m/s.", variations: "Constant speed.", hybrid: "TSD + Ratio." },
+    { name: "Relative Speed", difficulty: "Level 2 / 3", concepts: "S_rel = S1 ± S2.", tricks: "Subtract speeds for same direction; add for opposite.", variations: "Police catching thief.", hybrid: "TSD + Algebra." },
+    { name: "Average Speed", difficulty: "Level 3 / 4", concepts: "Total Distance / Total Time.", tricks: "For equal distances: 2*s1*s2/(s1+s2).", variations: "Round trips.", hybrid: "Average + TSD." },
+    { name: "Trains", difficulty: "Level 2 / 3", concepts: "Distance = Train length + object length.", tricks: "Poles have 0 length; platforms have absolute length.", variations: "Two trains passing.", hybrid: "Trains + Relative Speed." },
+    { name: "Boats", difficulty: "Level 2 / 3", concepts: "Upstream = S - W. Downstream = S + W.", tricks: "S = (Down + Up)/2, W = (Down - Up)/2.", variations: "Stationary boat speeds.", hybrid: "Boats + Ratios." },
+    { name: "Circular Track", difficulty: "Level 3 / 4", concepts: "Meeting points on track.", tricks: "First meet at start point is LCM of lap times.", variations: "Varying starting times.", hybrid: "Circular Track + Geometry." },
+    { name: "Race", difficulty: "Level 3 / 4", concepts: "Beating by distance or time.", tricks: "Speed ratio = Distance A / Distance B when time is equal.", variations: "Dead heats.", hybrid: "Races + Ratio." },
+    { name: "Variable Speed", difficulty: "Level 3 / 4", concepts: "Changing speeds mid-journey.", tricks: "Solve using segment distance sums.", variations: "Breaks/stops.", hybrid: "TSD + Algebra." },
+    { name: "Delay", difficulty: "Level 2 / 3", concepts: "Late/early arrivals.", tricks: "Distance = S1*S2/(S1-S2) * Time Difference.", variations: "Train delay.", hybrid: "TSD + Algebra." },
+    { name: "Meeting Problems", difficulty: "Level 4", concepts: "Overtakes and meets.", tricks: "Meet time = Initial distance / Relative speed.", variations: "Two cars depart.", hybrid: "TSD + Work." }
+  ],
+  "Boats & Streams": [
+    { name: "Upstream & Downstream speed", difficulty: "Level 2 / 3", concepts: "Upstream = S - W. Downstream = S + W.", tricks: "S = (Down + Up)/2, W = (Down - Up)/2.", variations: "Stationary boat speeds.", hybrid: "Boats + Ratios." }
+  ],
+  "Trains": [
+    { name: "Crossing platforms & poles", difficulty: "Level 2 / 3", concepts: "Distance = Train length + object length.", tricks: "Poles have 0 length; platforms have absolute length.", variations: "Two trains passing.", hybrid: "Trains + Relative Speed." }
+  ],
+  "Circular Motion": [
+    { name: "Meeting points on track", difficulty: "Level 3 / 4", concepts: "Time = Circumference / Rel Speed.", tricks: "First meet at start point is LCM of lap times.", variations: "Varying starting times.", hybrid: "Circular Track + Geometry." }
+  ],
+  "Relative Speed": [
+    { name: "Simultaneous starting meets", difficulty: "Level 2 / 3", concepts: "Meet time = Initial distance / Relative speed.", tricks: "Check if departure times are synchronized.", variations: "Overtaking setups.", hybrid: "Relative speed + Algebra." }
+  ],
+  "Races": [
+    { name: "Linear races with head starts", difficulty: "Level 3 / 4", concepts: "Beating by distance or time.", tricks: "Speed ratio = Distance A / Distance B when time is equal.", variations: "Dead heats.", hybrid: "Races + Ratio." }
+  ],
+  "Ages": [
+    { name: "Ratio differences in ages", difficulty: "Level 1 / 2", concepts: "Age difference remains constant.", tricks: "Equate difference between terms in ratios.", variations: "Father-son ratios.", hybrid: "Ages + Linear Equations." }
+  ],
+  "Clocks & Calendars": [
+    { name: "Angle between hands & calendar shifts", difficulty: "Level 2 / 3", concepts: "Angle = |30H - 11/2 M|.", tricks: "Relative speed = 5.5°/min.", variations: "Leap year day counts.", hybrid: "Clocks + Relative Speed." }
+  ],
+  "Linear Equations": [
+    { name: "One Variable", difficulty: "Level 1", concepts: "Solving ax + b = c.", tricks: "Isolate x directly.", variations: "Linear expressions.", hybrid: "Linear + Ratio." },
+    { name: "Two Variables", difficulty: "Level 2", concepts: "Simultaneous elimination.", tricks: "Cross-multiply coefficients.", variations: "Intersecting lines.", hybrid: "Linear + Geometry." },
+    { name: "Three Variables", difficulty: "Level 3", concepts: "Systems of 3 equations.", tricks: "Use row reductions.", variations: "Triple balances.", hybrid: "Linear + Number Systems." },
+    { name: "Fractional Equation", difficulty: "Level 3", concepts: "Rational linear forms.", tricks: "LCM to clear denominators.", variations: "Fraction variables.", hybrid: "Fraction + Ratio." },
+    { name: "Absolute Equation", difficulty: "Level 3 / 4", concepts: "Linear equations inside modulus.", tricks: "Branch into positive/negative regions.", variations: "Modulus bounds.", hybrid: "Modulus + Graph." },
+    { name: "Word Problems", difficulty: "Level 3", concepts: "Translating statements to algebra.", tricks: "Assign variable to the lowest unknown first.", variations: "Age puzzles.", hybrid: "Linear + Ratio." }
+  ],
+  "Quadratic Equations": [
+    { name: "Roots", difficulty: "Level 1", concepts: "x = [-b±√(b²-4ac)]/(2a).", tricks: "Check discriminant first.", variations: "Real roots.", hybrid: "Quadratic + Graph." },
+    { name: "Nature of Roots", difficulty: "Level 2", concepts: "D = b² - 4ac.", tricks: "D>0 (distinct real), D=0 (equal real), D<0 (imaginary).", variations: "Rational roots.", hybrid: "Quadratic + Geometry." },
+    { name: "Parameter Based", difficulty: "Level 3", concepts: "Solving quadratic equations with parameter constraints.", tricks: "Apply root conditions to variables.", variations: "Roots positive.", hybrid: "Quadratic + Modulus." },
+    { name: "Sum Product", difficulty: "Level 2", concepts: "Sum = -b/a, Product = c/a.", tricks: "α² + β² = (α+β)² - 2αβ.", variations: "Symmetric roots.", hybrid: "Quadratic + Algebra." },
+    { name: "Equation Formation", difficulty: "Level 2", concepts: "x² - (sum)x + product = 0.", tricks: "Reverse root values.", variations: "Forming new roots.", hybrid: "Equation + progression." },
+    { name: "Maximum Minimum", difficulty: "Level 3", concepts: "Vertex occurs at x = -b/(2a).", tricks: "Value is -D/(4a).", variations: "Vertex coordinates.", hybrid: "Max/Min + Geometry." },
+    { name: "Factorization", difficulty: "Level 2", concepts: "Splitting middle term.", tricks: "Find factors of a*c that sum to b.", variations: "Integral roots.", hybrid: "Factorization + APGP." }
+  ],
+  "Polynomials": [
+    { name: "Remainder Theorem & roots of polynomials", difficulty: "Level 3", concepts: "f(a) is remainder when divided by (x - a).", tricks: "Sum of coefficients of f(x) is f(1).", variations: "Cubic roots product.", hybrid: "Polynomial + APGP roots." }
+  ],
+  "Inequalities": [
+    { name: "Wavy curve intervals", difficulty: "Level 3", concepts: "Plotting roots on number line.", tricks: "Test sign of rightmost interval; alternate signs for odd powers.", variations: "Rational fraction inequalities.", hybrid: "Inequality + Logarithms." }
+  ],
+  "Absolute Value": [
+    { name: "Modulus bounds & equations", difficulty: "Level 3 / 4", concepts: "|x| distance from origin.", tricks: "Branch mod equations into positive/negative regions.", variations: "Double modulus equations.", hybrid: "Modulus + Graphs." }
+  ],
+  "Logarithms": [
+    { name: "Laws", difficulty: "Level 1", concepts: "log(ab) = log a + log b.", tricks: "Reduce bases to common primes.", variations: "Basic log scaling.", hybrid: "Log + Exponents." },
+    { name: "Change of Base", difficulty: "Level 2", concepts: "log_b(a) = log a / log b.", tricks: "Write as fraction to cancel bases.", variations: "Product of logs.", hybrid: "Log + Functions." },
+    { name: "Log Equation", difficulty: "Level 3", concepts: "Solving log_b(f(x)) = c.", tricks: "Convert to exponent form immediately.", variations: "Quadratic logs.", hybrid: "Log + Algebra." },
+    { name: "Log Inequality", difficulty: "Level 3 / 4", concepts: "log_b(x) > c.", tricks: "If base < 1, reverse inequality sign.", variations: "Domain restrictions.", hybrid: "Log + Exponents." },
+    { name: "Graph", difficulty: "Level 4", concepts: "y = log(x) shape.", tricks: "Log is only defined for positive x.", variations: "Intersecting lines.", hybrid: "Log Graph + linear." }
   ],
   "Exponents": [
     { name: "Indices Rules & Power Comparisons", difficulty: "Level 2 / 3", concepts: "a^m * a^n = a^(m+n).", tricks: "Equate exponents to compare huge bases.", variations: "Base comparisons.", hybrid: "GP progressions." }
   ],
-  "Progression": [
-    { name: "AP/GP Series & Infinite Sums", difficulty: "Level 3 / 4", concepts: "AP Sum, GP Sum, Infinite GP Sum.", tricks: "AGP: multiply by r and subtract shifted series.", variations: "HP Progressions.", hybrid: "AGP summation." }
+  "Surds": [
+    { name: "Rationalization & comparison", difficulty: "Level 2 / 3", concepts: "Conjugate multiplication.", tricks: "Equate roots using LCM of exponents.", variations: "Simplifying nested roots.", hybrid: "Surds + Algebra." }
+  ],
+  "Progressions": [
+    { name: "AP/GP Sums & Infinite GP", difficulty: "Level 3 / 4", concepts: "S_n AP, S_n GP, Infinite sum a/(1-r).", tricks: "AGP: multiply by r and subtract shifted series.", variations: "HP Progressions.", hybrid: "GP + Log relations." }
   ],
   "Functions": [
-    { name: "Domain, Range & Composites", difficulty: "Level 3 / 4", concepts: "f(g(x)), Domain, Range.", tricks: "Solve quadratic bounds for range calculations.", variations: "Functional equations.", hybrid: "Graph overlaps." }
+    { name: "Domain & Range composites", difficulty: "Level 3 / 4", concepts: "f(g(x)), Domain, Range.", tricks: "Domain: check for denominators ≠ 0 and roots ≥ 0.", variations: "Functional equations.", hybrid: "Functions + Graphs." }
   ],
   "Graphs": [
-    { name: "Intersections & Transformations", difficulty: "Level 3 / 4", concepts: "y = f(x-c) translations.", tricks: "Intersection points = number of simultaneous roots.", variations: "Modulus plots.", hybrid: "Geometric areas." }
+    { name: "Translations & intersections", difficulty: "Level 3 / 4", concepts: "y = f(x-c) shifts.", tricks: "Intersections are count of simultaneous real roots.", variations: "Modulus graph plots.", hybrid: "Graphs + Geometry areas." }
   ],
   "Maxima Minima": [
-    { name: "AM-GM Inequality & Rational Optimization", difficulty: "Level 4 / 5", concepts: "AM ≥ GM for positive terms.", tricks: "Equate terms to find minimum sum value.", variations: "Modulus minima.", hybrid: "Coordinate bounds." }
+    { name: "AM-GM inequality & optimization", difficulty: "Level 4 / 5", concepts: "AM ≥ GM for positive real terms.", tricks: "Min sum occurs when all components are equal.", variations: "Rational function bounds.", hybrid: "Maxima + Coordinate Geometry." }
   ],
-  "Divisibility": [
-    { name: "Divisibility Rules & Composite Tests", difficulty: "Level 2 / 3", concepts: "Rules of 9, 11, etc.", tricks: "For composite base, split into coprime factors.", variations: "Algebraic divisibility.", hybrid: "Root properties." }
+  "Algebraic Identities": [
+    { name: "Expansion rules & algebraic shortcuts", difficulty: "Level 2 / 3", concepts: "a³ + b³ + c³ - 3abc = (a+b+c)(a²+b²+c²-ab-bc-ca).", tricks: "If a+b+c = 0, then a³+b³+c³ = 3abc.", variations: "Finding variable values.", hybrid: "Identities + APGP." }
   ],
   "Factors": [
-    { name: "Number, Sum & Product of Factors", difficulty: "Level 3 / 4", concepts: "Factors count = (a+1)(b+1).", tricks: "Perfect squares always have an odd number of factors.", variations: "Even factors count.", hybrid: "Coprime splits." }
+    { name: "Factors count, sum & product", difficulty: "Level 3", concepts: "Factors = (a+1)(b+1).", tricks: "Squares have odd factor counts.", variations: "Even factors count.", hybrid: "Factors + Divisibility." }
+  ],
+  "Multiples": [
+    { name: "LCM & HCF application patterns", difficulty: "Level 2 / 3", concepts: "Product of numbers = LCM * HCF.", tricks: "HCF of fractions = HCF(Num) / LCM(Den).", variations: "Bells tolling together.", hybrid: "Multiples + AP series." }
+  ],
+  "Divisibility": [
+    { name: "Divisibility checks & composite bases", difficulty: "Level 2 / 3", concepts: "Rules of 9, 11, etc.", tricks: "Split composite bases into coprime factors.", variations: "Divisibility of large formulas.", hybrid: "Divisibility + Quadratic roots." }
   ],
   "Prime Numbers": [
-    { name: "Prime Testing & Factorization", difficulty: "Level 2 / 3", concepts: "6k ± 1 forms.", tricks: "Test prime status up to √N.", variations: "Twin prime counts.", hybrid: "Modulo bases." }
+    { name: "Prime checks & prime factorization", difficulty: "Level 2 / 3", concepts: "Primes take form 6k ± 1.", tricks: "Test prime status up to √N.", variations: "Twin prime checks.", hybrid: "Prime factors + Modular." }
+  ],
+  "Composite Numbers": [
+    { name: "Composite factor properties", difficulty: "Level 2 / 3", concepts: "Composite numbers factors.", tricks: "Subtract prime count from total.", variations: "Prime counts.", hybrid: "Composites + Divisibility." }
+  ],
+  "HCF": [
+    { name: "HCF of polynomials & numbers", difficulty: "Level 2 / 3", concepts: "Greatest common divisor.", tricks: "HCF is difference of numbers or its factor.", variations: "Grid packing problems.", hybrid: "HCF + LCM grids." }
+  ],
+  "LCM": [
+    { name: "LCM cyclic events & remainder offsets", difficulty: "Level 2 / 3", concepts: "Least common multiple.", tricks: "LCM(a,b) * HCF(a,b) = a*b.", variations: "Track meetings.", hybrid: "LCM + AP series." }
   ],
   "Remainders": [
-    { name: "Fermat, Euler & Chinese Remainder Theorem", difficulty: "Level 4 / 5", concepts: "Modular arithmetic.", tricks: "Use negative remainders to ease calculations.", variations: "Factorial remainders.", hybrid: "Consecutive loops." }
+    { name: "Basic Remainders", difficulty: "Level 1", concepts: "Numerator mod Denominator.", tricks: "Use negative remainders.", variations: "Large integers.", hybrid: "Remainder + algebra." },
+    { name: "Modular Arithmetic", difficulty: "Level 2", concepts: "Congruence mod m.", tricks: "Congruences can be added/multiplied.", variations: "Days of week.", hybrid: "Modular + Algebra." },
+    { name: "Chinese Remainder", difficulty: "Level 4", concepts: "Simultaneous congruence solver.", tricks: "Stitch modulo equations step-by-step.", variations: "Prime moduli.", hybrid: "CRT + Exponents." },
+    { name: "Fermat", difficulty: "Level 3", concepts: "a^(p-1) ≡ 1 mod p.", tricks: "Check if p is prime and a is coprime.", variations: "Prime remainders.", hybrid: "Fermat + Algebra." },
+    { name: "Euler", difficulty: "Level 4", concepts: "a^φ(N) ≡ 1 mod N.", tricks: "Find Totient φ(N) first.", variations: "Composite denominators.", hybrid: "Euler + Exponents." },
+    { name: "Cyclicity", difficulty: "Level 3", concepts: "Remainder repeats in cycles.", tricks: "Check the pattern of remainders.", variations: "Units cyclicity.", hybrid: "Cyclicity + Remainders." },
+    { name: "Polynomial Remainder", difficulty: "Level 4", concepts: "f(x) mod g(x).", tricks: "Equate g(x) = 0 to evaluate f(x).", variations: "Cubic quotients.", hybrid: "Remainder + Probability." }
+  ],
+  "Modular Arithmetic": [
+    { name: "Congruence loops & cycle checks", difficulty: "Level 3 / 4", concepts: "a ≡ b (mod m).", tricks: "Congruences can be added, subtracted, and multiplied.", variations: "Day of the week shifts.", hybrid: "Modular + Algebra." }
+  ],
+  "Cyclicity": [
+    { name: "Last digits power loops", difficulty: "Level 2 / 3", concepts: "Units digit loops of 4.", tricks: "Divide exponent by 4 to locate unit digit.", variations: "Cyclicity of larger bases.", hybrid: "Cyclicity + Remainders." }
   ],
   "Last Digit": [
-    { name: "Cyclicity & Last Two Digits", difficulty: "Level 2 / 3", concepts: "Exponents units digits.", tricks: "Cyclicity of base digits is 4.", variations: "Last two digits.", hybrid: "Factorial products." }
+    { name: "Finding last two digits of power", difficulty: "Level 3 / 4", concepts: "Binomial expansion endings.", tricks: "If units digit is 1, use formula (10a+1)^b.", variations: "Last three digits.", hybrid: "Last digit + GP progressions." }
   ],
   "Base System": [
-    { name: "Base N Conversions & Operations", difficulty: "Level 3 / 4", concepts: "Base N arithmetic.", tricks: "Division by (r-1) resembles sum of digits.", variations: "Fractions in base N.", hybrid: "Algebraic base." }
+    { name: "Base N conversion & custom base addition", difficulty: "Level 3", concepts: "Positional values in base N.", tricks: "Digit sums divisible by (r-1).", variations: "Decimal to base N fractions.", hybrid: "Base conversion + Algebra." }
+  ],
+  "Digital Root": [
+    { name: "Sum of digits cyclicity", difficulty: "Level 2 / 3", concepts: "Digital root is remainder modulo 9.", tricks: "Eliminate 9s when adding digits.", variations: "Squares digital roots.", hybrid: "Digital Root + Divisibility." }
+  ],
+  "Perfect Squares": [
+    { name: "Perfect square constraints & endings", difficulty: "Level 2 / 3", concepts: "Squares can only end in 0, 1, 4, 5, 6, 9.", tricks: "Perfect squares have odd number of factors.", variations: "Difference of squares.", hybrid: "Squares + APGP." }
+  ],
+  "Perfect Cubes": [
+    { name: "Perfect cube endings & parameters", difficulty: "Level 2 / 3", concepts: "Cubes properties.", tricks: "Cubes must have factors with exponent multiples of 3.", variations: "Cube roots.", hybrid: "Cubes + Algebra." }
+  ],
+  "Factorials": [
+    { name: "Trailing zeros & exponent of prime", difficulty: "Level 3 / 4", concepts: "Trailing zeros in N!.", tricks: "Legendres formula: E_p(N!) = [N/p] + [N/p²] + ...", variations: "Highest power of a composite in N!.", hybrid: "Factorials + Remainders." }
   ],
   "Integer Properties": [
-    { name: "Even-Odd & Consecutive Sums", difficulty: "Level 2 / 3", concepts: "Consecutive integers.", tricks: "Consecutive average is the exact middle term.", variations: "Integer boundaries.", hybrid: "Linear graphs." }
+    { name: "Even-Odd & consecutive constraints", difficulty: "Level 2 / 3", concepts: "Even/Odd arithmetic.", tricks: "Consecutive average is the middle term.", variations: "Integer coordinates.", hybrid: "Integers + Linear graphs." }
   ],
-  "Triangle": [
-    { name: "Similarity & Area Theorems", difficulty: "Level 3 / 4", concepts: "Heron's Formula, Medians.", tricks: "Area ratio is square of sides similarity ratio.", variations: "Angle bisectors.", hybrid: "Incenters." }
+  "Lines & Angles": [
+    { name: "Parallel line angles & polygon angles", difficulty: "Level 2", concepts: "Angles on straight lines, alternate angles.", tricks: "Sum of angles at a point is 360°.", variations: "Transversal line crossings.", hybrid: "Lines + Polygon diagonals." }
   ],
-  "Circle": [
-    { name: "Tangents, Chords & Angle properties", difficulty: "Level 3 / 4", concepts: "Tangent-Secant PT² = PA * PB.", tricks: "Alternate segment theorem properties.", variations: "Cyclic quadrilaterals.", hybrid: "Common tangents." }
+  "Triangles": [
+    { name: "Similarity", difficulty: "Level 2", concepts: "Ratios of corresponding sides are equal.", tricks: "Area ratio is square of side ratio.", variations: "Similar triangles.", hybrid: "Similarity + Coordinate." },
+    { name: "Congruence", difficulty: "Level 2", concepts: "SAS, ASA, SSS congruence criteria.", tricks: "Identical dimensions mean identical areas.", variations: "Congruent proofs.", hybrid: "Congruence + Algebra." },
+    { name: "Area", difficulty: "Level 3", concepts: "Area = 1/2 * base * height.", tricks: "Heron's: √[s(s-a)(s-b)(s-c)].", variations: "Herons area.", hybrid: "Triangle + Mensuration." },
+    { name: "Median", difficulty: "Level 3", concepts: "AD bisects BC.", tricks: "Appollonius: AB² + AC² = 2*(AD² + BD²).", variations: "Centroid divides 2:1.", hybrid: "Median + Coordinate." },
+    { name: "Altitude", difficulty: "Level 3", concepts: "Perpendicular from vertex.", tricks: "Orthocenter properties.", variations: "Altitude lengths.", hybrid: "Altitude + Algebra." },
+    { name: "Angle Bisector", difficulty: "Level 3", concepts: "Divides opposite side in ratio of adjacent sides.", tricks: "Incenter properties.", variations: "Angle bisectors.", hybrid: "Angle bisector + Coordinate." },
+    { name: "Inradius", difficulty: "Level 4", concepts: "r = Area / s.", tricks: "Right triangle r = (a+b-c)/2.", variations: "Inscribed circle.", hybrid: "Inradius + Mensuration." },
+    { name: "Circumradius", difficulty: "Level 4", concepts: "R = abc / 4Area.", tricks: "Right triangle R = hypotenuse/2.", variations: "Circumscribed circle.", hybrid: "Circumradius + Algebra." },
+    { name: "Pythagoras", difficulty: "Level 2", concepts: "a² + b² = c².", tricks: "Triplets: 3-4-5, 5-12-13, 8-15-17.", variations: "Right triangles.", hybrid: "Pythagoras + Coordinate." }
   ],
-  "Quadrilateral": [
+  "Circles": [
+    { name: "Chords", difficulty: "Level 2", concepts: "PA * PB = PC * PD.", tricks: "Perpendicular bisects chord.", variations: "Intersecting chords.", hybrid: "Chords + Coordinate." },
+    { name: "Tangents", difficulty: "Level 3", concepts: "PT² = PA * PB.", tricks: "Alternate segment theorem.", variations: "Direct common tangent.", hybrid: "Tangents + Algebra." },
+    { name: "Secants", difficulty: "Level 3", concepts: "Secant intersection rules.", tricks: "PA * PB product is constant.", variations: "Two secants.", hybrid: "Secants + Probability." },
+    { name: "Sector", difficulty: "Level 2 / 3", concepts: "Area = (θ/360) * π * r².", tricks: "Arc length = (θ/360) * 2 * π * r.", variations: "Sector arcs.", hybrid: "Sector + Mensuration." },
+    { name: "Segment", difficulty: "Level 3 / 4", concepts: "Area of segment = Area of sector - Area of triangle.", tricks: "Deduct triangle area using 1/2 * r² * sin θ.", variations: "Segment areas.", hybrid: "Segment + Algebra." },
+    { name: "Cyclic Quadrilateral", difficulty: "Level 3 / 4", concepts: "Opposite angles sum to 180°.", tricks: "Ptolemy's Theorem: d1*d2 = ac + bd.", variations: "Inscribed quadrilaterals.", hybrid: "Cyclic + Probability." }
+  ],
+  "Quadrilaterals": [
     { name: "Area & Diagonals of Rhombus/Trapezium", difficulty: "Level 3 / 4", concepts: "Quadrilateral properties.", tricks: "Diagonals of rhombus bisect at right angles.", variations: "Inscribed shapes.", hybrid: "Optimization." }
   ],
-  "Polygon": [
+  "Polygons": [
     { name: "Interior/Exterior Angles & Diagonals", difficulty: "Level 3 / 4", concepts: "Sum = (n-2)*180.", tricks: "Sum of exterior angles is always 360 degrees.", variations: "Regular hexagons.", hybrid: "AP angles." }
   ],
   "Coordinate Geometry": [
-    { name: "Distance, Section Formula & Equations", difficulty: "Level 3 / 4", concepts: "Distance, Slopes.", tricks: "Condition for perpendicularity: m1 * m2 = -1.", variations: "Triangle areas.", hybrid: "Shortest lines." }
+    { name: "Distance", difficulty: "Level 1 / 2", concepts: "√[(x2-x1)² + (y2-y1)²].", tricks: "Use Pythagorean triplets.", variations: "Distance check.", hybrid: "Distance + Coordinate." },
+    { name: "Midpoint", difficulty: "Level 1", concepts: "((x1+x2)/2, (y1+y2)/2).", tricks: "Average of endpoints.", variations: "Midpoints.", hybrid: "Midpoint + Triangle." },
+    { name: "Section Formula", difficulty: "Level 2 / 3", concepts: "((mx2+nx1)/(m+n), (my2+ny1)/(m+n)).", tricks: "Ratio division coordinates.", variations: "Internal/external splits.", hybrid: "Section + Circle." },
+    { name: "Slope", difficulty: "Level 2", concepts: "m = (y2-y1)/(x2-x1).", tricks: "Parallel (m1=m2), Perpendicular (m1*m2 = -1).", variations: "Slope values.", hybrid: "Slope + Algebra." },
+    { name: "Line Equation", difficulty: "Level 2 / 3", concepts: "y - y1 = m*(x - x1).", tricks: "Convert to Ax + By + C = 0.", variations: "Equation lines.", hybrid: "Line + Circle." },
+    { name: "Parallel Lines", difficulty: "Level 2", concepts: "Ax + By + C1 = 0.", tricks: "Constant slope.", variations: "Parallel lines distance.", hybrid: "Parallel + Coordinate." },
+    { name: "Perpendicular Lines", difficulty: "Level 2 / 3", concepts: "Bx - Ay + C2 = 0.", tricks: "m1*m2 = -1.", variations: "Perpendicular lines distance.", hybrid: "Perpendicular + Coordinate." }
   ],
-  "Mensuration": [
-    { name: "3D Volumes & Surface Area Recasting", difficulty: "Level 3 / 4", concepts: "Solids scaling.", tricks: "Linear scale k shifts Volume by k³.", variations: "Recasting cylinders.", hybrid: "Inscribed cones." }
+  "Mensuration 2D": [
+    { name: "Area & Perimeter scaling", difficulty: "Level 2 / 3", concepts: "2D shape perimeter/area.", tricks: "Scale factor k shifts area by k².", variations: "Composite figures.", hybrid: "Mensuration + Algebra." }
   ],
-  "Permutation": [
-    { name: "Linear, Circular & Restricted arrangements", difficulty: "Level 3 / 4", concepts: "Permutations, Circular.", tricks: "String method: group items. Gap method: separate items.", variations: "Repeating letters.", hybrid: "Path grid ways." }
+  "Mensuration 3D": [
+    { name: "Volume & Surface Area Recasting", difficulty: "Level 3 / 4", concepts: "Conservation of volume.", tricks: "Scale factor k shifts volume by k³.", variations: "Melting spheres.", hybrid: "3D + Optimization." }
   ],
-  "Combination": [
-    { name: "Committee Selection & Identical Objects", difficulty: "Level 3 / 4", concepts: "Selections nCr.", tricks: "Identical objects distribution = (n+r-1)C(r-1).", variations: "Selections.", hybrid: "Probability." }
+  "Trigonometric Basics": [
+    { name: "Ratios & Height-Distance applications", difficulty: "Level 2 / 3", concepts: "sin, cos, tan definitions.", tricks: "Learn standard values for 30°, 45°, 60°.", variations: "Angle of elevation.", hybrid: "Trig + Coordinate Geometry." }
+  ],
+  "Permutations": [
+    { name: "Linear, Circular & Restricted arrangements", difficulty: "Level 3 / 4", concepts: "Arrangement formulas.", tricks: "Gap method: separate items. String method: tie items together.", variations: "Repeating letters.", hybrid: "Path grid ways." }
+  ],
+  "Combinations": [
+    { name: "Committee selections & identical objects", difficulty: "Level 3 / 4", concepts: "Selections nCr.", tricks: "Identical objects distribution = (n+r-1)C(r-1).", variations: "Selections constraints.", hybrid: "Combinations + Probability." }
   ],
   "Probability": [
-    { name: "Conditional & Bayes Theorem", difficulty: "Level 3 / 4", concepts: "Bayesian probability.", tricks: "Favorable outcomes divided by total sample space.", variations: "Dice sequences.", hybrid: "Derangements." }
+    { name: "Independent Events", difficulty: "Level 2", concepts: "P(A ∩ B) = P(A) * P(B).", tricks: "Multiply individual probabilities directly.", variations: "Coin toss.", hybrid: "Probability + P&C." },
+    { name: "Dependent Events", difficulty: "Level 3", concepts: "P(A ∩ B) = P(A) * P(B|A).", tricks: "Update denominator count after each draw.", variations: "Card draws without replacement.", hybrid: "Probability + Set Theory." },
+    { name: "Conditional Probability", difficulty: "Level 3 / 4", concepts: "P(A|B) = P(A ∩ B) / P(B).", tricks: "Restrict sample space to outcome B.", variations: "conditional dice.", hybrid: "Probability + Algebra." },
+    { name: "Bayes Theorem", difficulty: "Level 4", concepts: "Posterior probability update.", tricks: "Create a probability branch tree.", variations: "Disease testing.", hybrid: "Bayes + Algebra." },
+    { name: "Binomial Probability", difficulty: "Level 4", concepts: "nCr * p^r * q^(n-r).", tricks: "Check constraints for independent success.", variations: "Tossing coins n times.", hybrid: "Binomial + P&C." },
+    { name: "Geometric Probability", difficulty: "Level 4 / 5", concepts: "Probability based on areas.", tricks: "Favorable area / Total area.", variations: "Arrival times overlaps.", hybrid: "Geometric + Coordinate." }
   ],
   "Set Theory": [
     { name: "Venn Diagrams & Inclusion-Exclusion", difficulty: "Level 3 / 4", concepts: "Three set Venn.", tricks: "Total = Sum(1) - Sum(2) + All 3 + None.", variations: "Min/Max overlaps.", hybrid: "Ratio datasets." }
   ],
-  "Sequence": [
-    { name: "Recursive Pattern Recognition", difficulty: "Level 4 / 5", concepts: "Recursive series.", tricks: "Calculate first 4 terms to see repeats.", variations: "Custom series.", hybrid: "AGP logs." }
+  "Venn Diagram": [
+    { name: "Three set Venn & Optimization", difficulty: "Level 3 / 4", concepts: "Venn parameters.", tricks: "Fill the innermost core region first.", variations: "Incomplete Venn datasets.", hybrid: "Venn + Percentages." }
+  ],
+  "Binomial Basics": [
+    { name: "Expansion coefficients & term finding", difficulty: "Level 3", concepts: "Binomial expansion term: nCr * a^(n-r) * b^r.", tricks: "Sum of coefficients of (x+y)^n is 2^n.", variations: "Finding middle term.", hybrid: "Binomial + APGP progressions." }
+  ],
+  "Sequences": [
+    { name: "Recursive pattern matching", difficulty: "Level 4 / 5", concepts: "Recursive sequence terms.", tricks: "Evaluate first 4 terms to check cycles.", variations: "Non-routine sequences.", hybrid: "Recursive + Logarithms." }
   ]
 };
-
-// 99.99+ DILR Pattern Framework Registry
 window.CAT_DILR_PATTERNS = {
   "Tables": [
     { name: "Missing Data Table", difficulty: "Level 3 / 4", representation: "Construct a grid marking rows and column totals. Use cross-sums.", deduction: "Find rows/columns with only one missing element first.", variations: "Tables with range limits (e.g. value is between 10 and 20).", hybrid: "Table + Scheduling rules." },
@@ -740,19 +939,19 @@ window.QUESTION_ENGINE = {
       category = "Interest";
     } else if (subLower.includes("work") || subLower.includes("pipes") || subLower.includes("cisterns") || subLower.includes("efficiency")) {
       category = "TimeWork";
-    } else if (subLower.includes("speed") || subLower.includes("distance") || subLower.includes("time speed") || subLower.includes("races") || subLower.includes("trains")) {
+    } else if (subLower.includes("speed") || subLower.includes("distance") || subLower.includes("train") || subLower.includes("boat") || subLower.includes("circular") || subLower.includes("motion") || subLower.includes("relative") || subLower.includes("races") || subLower.includes("clock") || subLower.includes("calendar")) {
       category = "TSD";
-    } else if (subLower.includes("quadratic") || subLower.includes("roots") || subLower.includes("equations")) {
+    } else if (subLower.includes("linear") || subLower.includes("quadratic") || subLower.includes("equation") || subLower.includes("identities")) {
       category = "Quadratic";
     } else if (subLower.includes("log") || subLower.includes("logarithm")) {
       category = "Logarithms";
-    } else if (subLower.includes("sequence") || subLower.includes("series") || subLower.includes("ap") || subLower.includes("gp") || subLower.includes("progression")) {
+    } else if (subLower.includes("progression") || subLower.includes("sequence") || subLower.includes("series") || subLower.includes("ap") || subLower.includes("gp") || subLower.includes("hp")) {
       category = "APGP";
-    } else if (subLower.includes("triangle") || subLower.includes("perimeter") || subLower.includes("triangles") || subLower.includes("angles")) {
+    } else if (subLower.includes("triangle") || subLower.includes("perimeter") || subLower.includes("triangles") || subLower.includes("angles") || subLower.includes("line")) {
       category = "Triangles";
-    } else if (subLower.includes("circle") || subLower.includes("tangent") || subLower.includes("chord") || subLower.includes("polygon")) {
+    } else if (subLower.includes("circle") || subLower.includes("tangent") || subLower.includes("chord") || subLower.includes("polygon") || subLower.includes("quadrilateral")) {
       category = "Circles";
-    } else if (subLower.includes("number") || subLower.includes("remainder") || subLower.includes("divisibility") || subLower.includes("digit") || subLower.includes("zero") || subLower.includes("factor") || subLower.includes("lcm") || subLower.includes("hcf")) {
+    } else if (subLower.includes("number") || subLower.includes("remainder") || subLower.includes("divisibility") || subLower.includes("digit") || subLower.includes("zero") || subLower.includes("factor") || subLower.includes("multiple") || subLower.includes("hcf") || subLower.includes("lcm") || subLower.includes("root") || subLower.includes("square") || subLower.includes("cube") || subLower.includes("integer") || subLower.includes("prime") || subLower.includes("composite")) {
       category = "NumberSystems";
     } else if (subLower.includes("permutation") || subLower.includes("combination") || subLower.includes("arrange") || subLower.includes("seating")) {
       category = "PNC";
