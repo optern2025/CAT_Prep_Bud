@@ -808,11 +808,13 @@ document.addEventListener('DOMContentLoaded', function() {
           sectionData.topics[topicName].forEach(sub => {
             const currentProgress = progressStore[sub] || 'Not Started';
             const currentConfidence = confidenceStore[sub] || 'Medium';
+            const isPatternSec = (sec === 'QA' || sec === 'DILR');
+            const secColor = sec === 'QA' ? 'indigo' : 'blue';
             
             subtopicsHtml += `
               <div class="syllabus-subtopic-row">
-                <div class="subtopic-name-col">
-                  <span class="bullet">•</span> ${sub}
+                <div class="subtopic-name-col" style="cursor: pointer; text-decoration: underline dotted var(--color-${secColor}); flex-grow: 1;" data-subtopic="${sub}" data-section="${sec}" title="${isPatternSec ? 'Click to inspect 99.99+ Patterns' : ''}">
+                  <span class="bullet">•</span> ${sub} ${isPatternSec ? `<small style="color: var(--color-${secColor}); font-size: 0.7rem; margin-left: 0.35rem; display: inline-block;">[99.99+ Blueprint]</small>` : ''}
                 </div>
                 <div class="subtopic-status-col">
                   <select class="status-select" data-subtopic="${sub}">
@@ -887,6 +889,144 @@ document.addEventListener('DOMContentLoaded', function() {
           self.openPracticeDrill(sec, topic, sub);
         });
       });
+
+      document.querySelectorAll('.subtopic-name-col').forEach(col => {
+        col.addEventListener('click', function() {
+          const sub = this.getAttribute('data-subtopic');
+          const sec = this.getAttribute('data-section');
+          if (sec === 'QA') {
+            self.showPatternBlueprint(sub);
+          } else if (sec === 'DILR') {
+            self.showDILRPatternBlueprint(sub);
+          }
+        });
+      });
+    },
+
+    showPatternBlueprint: function(subtopic) {
+      const patterns = window.CAT_QA_PATTERNS[subtopic] || [];
+      const titleEl = document.getElementById('patternsModalTitle');
+      const bodyEl = document.getElementById('patternsModalBody');
+      const modal = document.getElementById('patternsModal');
+
+      titleEl.innerText = `${subtopic} - 99.99+ QA Pattern Blueprint`;
+      bodyEl.innerHTML = '';
+
+      let topicName = "Arithmetic";
+      const qaTopics = window.CAT_SYLLABUS.QA.topics;
+      for (let t in qaTopics) {
+        if (qaTopics[t].includes(subtopic)) {
+          topicName = t;
+          break;
+        }
+      }
+
+      if (patterns.length === 0) {
+        bodyEl.innerHTML = `
+          <div class="empty-state" style="padding: 2rem; text-align: center;">
+            <p style="color: var(--text-muted);">No detailed pattern blueprints configured for this subtopic yet.</p>
+          </div>
+        `;
+      } else {
+        const listContainer = document.createElement('div');
+        listContainer.style.display = 'flex';
+        listContainer.style.flexDirection = 'column';
+        listContainer.style.gap = '1.25rem';
+
+        patterns.forEach((pat, idx) => {
+          const card = document.createElement('div');
+          card.style.background = 'var(--bg-card)';
+          card.style.border = '1px solid var(--border-color)';
+          card.style.borderRadius = '8px';
+          card.style.padding = '1.25rem';
+          card.style.position = 'relative';
+
+          card.innerHTML = `
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 0.5rem;">
+              <span style="font-weight: 700; color: white; font-size: 1rem;">Pattern ${idx + 1}: ${pat.name}</span>
+              <span class="tag tag-indigo" style="font-size: 0.7rem; padding: 0.15rem 0.45rem;">${pat.difficulty}</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.85rem; color: #cbd5e1; line-height: 1.5;">
+              <div><strong style="color: var(--color-indigo);">📚 Core Concepts:</strong> ${pat.concepts}</div>
+              <div><strong style="color: var(--color-blue);">⚡ Standard Tricks:</strong> ${pat.tricks}</div>
+              <div><strong style="color: var(--color-purple);">🎯 CAT Variations:</strong> ${pat.variations || 'Multi-step calculation variables'}</div>
+              <div><strong style="color: var(--color-rose);">🔥 Hybrid Variations:</strong> ${pat.hybrid || 'Multi-topic crossover equations'}</div>
+            </div>
+            <div style="margin-top: 1rem; text-align: right;">
+              <button class="btn btn-primary" style="font-size: 0.75rem; padding: 0.35rem 0.75rem;" onclick="document.getElementById('patternsModal').classList.add('hidden'); window.CAT_APP.openPracticeDrill('QA', '${topicName}', '${subtopic}');">
+                Practice Pattern Drill
+              </button>
+            </div>
+          `;
+          listContainer.appendChild(card);
+        });
+        bodyEl.appendChild(listContainer);
+      }
+
+      modal.classList.remove('hidden');
+    },
+
+    showDILRPatternBlueprint: function(subtopic) {
+      const patterns = window.CAT_DILR_PATTERNS[subtopic] || [];
+      const titleEl = document.getElementById('patternsModalTitle');
+      const bodyEl = document.getElementById('patternsModalBody');
+      const modal = document.getElementById('patternsModal');
+
+      titleEl.innerText = `${subtopic} - 99.99+ DILR Pattern Blueprint`;
+      bodyEl.innerHTML = '';
+
+      let topicName = "Logical Reasoning";
+      const dilrTopics = window.CAT_SYLLABUS.DILR.topics;
+      for (let t in dilrTopics) {
+        if (dilrTopics[t].includes(subtopic)) {
+          topicName = t;
+          break;
+        }
+      }
+
+      if (patterns.length === 0) {
+        bodyEl.innerHTML = `
+          <div class="empty-state" style="padding: 2rem; text-align: center;">
+            <p style="color: var(--text-muted);">No detailed pattern blueprints configured for this subtopic yet.</p>
+          </div>
+        `;
+      } else {
+        const listContainer = document.createElement('div');
+        listContainer.style.display = 'flex';
+        listContainer.style.flexDirection = 'column';
+        listContainer.style.gap = '1.25rem';
+
+        patterns.forEach((pat, idx) => {
+          const card = document.createElement('div');
+          card.style.background = 'var(--bg-card)';
+          card.style.border = '1px solid var(--border-color)';
+          card.style.borderRadius = '8px';
+          card.style.padding = '1.25rem';
+          card.style.position = 'relative';
+
+          card.innerHTML = `
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 0.5rem;">
+              <span style="font-weight: 700; color: white; font-size: 1rem;">Pattern ${idx + 1}: ${pat.name}</span>
+              <span class="tag tag-blue" style="font-size: 0.7rem; padding: 0.15rem 0.45rem;">${pat.difficulty}</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.85rem; color: #cbd5e1; line-height: 1.5;">
+              <div><strong style="color: var(--color-blue);">📊 Representation Template:</strong> ${pat.representation}</div>
+              <div><strong style="color: var(--color-indigo);">⚡ Logical Deduction Rules:</strong> ${pat.deduction}</div>
+              <div><strong style="color: var(--color-purple);">🎯 CAT Variations:</strong> ${pat.variations || 'Multi-constraint variables'}</div>
+              <div><strong style="color: var(--color-rose);">🔥 Hybrid Variations:</strong> ${pat.hybrid || 'Multi-topic crossover sets'}</div>
+            </div>
+            <div style="margin-top: 1rem; text-align: right;">
+              <button class="btn btn-primary" style="font-size: 0.75rem; padding: 0.35rem 0.75rem;" onclick="document.getElementById('patternsModal').classList.add('hidden'); window.CAT_APP.openPracticeDrill('DILR', '${topicName}', '${subtopic}');">
+                Practice Pattern Drill
+              </button>
+            </div>
+          `;
+          listContainer.appendChild(card);
+        });
+        bodyEl.appendChild(listContainer);
+      }
+
+      modal.classList.remove('hidden');
     },
 
     renderSectionalsList: function() {
