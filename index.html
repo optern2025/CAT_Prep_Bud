@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CAT Prep Buddy - Premium Study Suite</title>
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Lucide Icons for beautiful design -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- ChartJS CDN for Weekly KPIs -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Supabase CDN Client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+  <!-- Supabase Authentication Portal Overlay -->
+  <div class="auth-portal-container" id="authPage">
+    <div class="auth-card">
+      <div class="auth-header">
+        <div class="auth-brand-icon">CP</div>
+        <h3>CAT Prep Buddy</h3>
+        <p>Aspirant Authentication Portal</p>
+      </div>
+      
+      <div class="auth-form-group">
+        <label for="authEmail">Email Address:</label>
+        <input type="email" id="authEmail" class="auth-input" placeholder="enter your email...">
+      </div>
+      
+      <div class="auth-form-group">
+        <label for="authPassword">Password:</label>
+        <input type="password" id="authPassword" class="auth-input" placeholder="••••••••">
+      </div>
+      
+      <div class="auth-actions">
+        <button class="btn btn-primary" id="btnAuthLogin" style="width: 100%; padding: 0.75rem;">Log In</button>
+        <button class="btn btn-secondary" id="btnAuthRegister" style="width: 100%; padding: 0.75rem; margin-top: 0.5rem;">Create Account</button>
+      </div>
+
+      <div class="auth-toggle-link" id="authToggleLink">
+        Don't have an account? Click Create Account above.
+      </div>      
+    </div>
+  </div>
+
+  <div class="app-container">
+    
+    <!-- 1. Left Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-icon">CP</div>
+        <div class="brand-text">CAT Prep Buddy</div>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <div class="sidebar-nav-item active" data-target="dashboard">
+          <i class="nav-icon" data-lucide="layout-dashboard"></i>
+          <span>Weekly Dashboard</span>
+        </div>
+        <div class="sidebar-nav-item" data-target="syllabus">
+          <i class="nav-icon" data-lucide="book-open"></i>
+          <span>Syllabus Tracker</span>
+        </div>
+        <div class="sidebar-nav-item" data-target="execution">
+          <i class="nav-icon" data-lucide="calendar"></i>
+          <span>Execution Sheet</span>
+        </div>
+        
+        <!-- NEW PROBLEM SOLVER TAB -->
+        <div class="sidebar-nav-item" data-target="solver">
+          <i class="nav-icon" data-lucide="brain"></i>
+          <span>Problem Solver</span>
+        </div>
+
+        <div class="sidebar-nav-item" data-target="mocks">
+          <i class="nav-icon" data-lucide="activity"></i>
+          <span>Mock Diagnostics</span>
+        </div>
+        <div class="sidebar-nav-item" data-target="errors">
+          <i class="nav-icon" data-lucide="alert-octagon"></i>
+          <span>Error Notebook</span>
+        </div>
+        <div class="sidebar-nav-item" data-target="revision">
+          <i class="nav-icon" data-lucide="refresh-cw"></i>
+          <span>Revision Hub</span>
+        </div>
+        <div class="sidebar-nav-item" data-target="profile">
+          <i class="nav-icon" data-lucide="user"></i>
+          <span>My Profile</span>
+        </div>
+      </nav>
+      
+      <div class="sidebar-footer">
+        <p>CAT Prep Suite v1.2.0</p>
+        <p>Study Smart, Crack IIMs</p>
+      </div>
+    </aside>
+
+    <!-- 2. Main Application Workspace -->
+    <main class="workspace">
+      
+      <!-- Top header bar -->
+      <header class="workspace-header">
+        <div class="header-info">
+          <h2 id="currentModuleTitle">Preparation Dashboard</h2>
+          <p id="currentModuleSubtitle">Track syllabus, identify test patterns, and study systematically.</p>
+        </div>
+        
+        <div class="header-actions">
+          <div class="timeline-tracker">
+            <i data-lucide="clock" style="width: 16px; height: 16px;"></i>
+            <span>Current Date: <b>July 18, 2026</b></span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Dynamic Page Content Container -->
+      <section class="workspace-content">
+
+        <!-- TAB 1: WEEKLY KPI DASHBOARD -->
+        <div id="dashboardPage" class="page-view">
+          <!-- Metric Widgets Grid -->
+          <div class="dashboard-grid">
+            <div class="metric-card accuracy-card">
+              <div class="metric-header">Preparation Accuracy</div>
+              <div class="metric-value" id="dashAccuracyVal">0%</div>
+              <div class="metric-footer">Across all practices & mocks</div>
+            </div>
+            <div class="metric-card mocks-card">
+              <div class="metric-header">Mocks Solved</div>
+              <div class="metric-value" id="dashMocksCount">0</div>
+              <div class="metric-footer">Full and sectional attempts</div>
+            </div>
+            <div class="metric-card rc-card">
+              <div class="metric-header">RCs Cracked</div>
+              <div class="metric-value" id="dashRcCount">0</div>
+              <div class="metric-footer">Reading Comprehension passages</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-header">DILR Sets Solved</div>
+              <div class="metric-value" id="dashDilrCount">0</div>
+              <div class="metric-footer">Logical Reasoning & DI sets</div>
+            </div>
+          </div>
+
+          <!-- Charts + Today's Targets layout -->
+          <div class="dashboard-details-layout">
+            <!-- Left block: Performance charts -->
+            <div class="dashboard-card">
+              <div class="card-title">
+                <span>Mock Percentile & Score Trends</span>
+                <span class="tag tag-mock">Historical Trend</span>
+              </div>
+              <div class="chart-container-large">
+                <canvas id="mockTrendChart"></canvas>
+              </div>
+              
+              <div class="chart-grid-two-col">
+                <div>
+                  <div class="card-title" style="font-size: 0.95rem; margin-bottom: 0.75rem;">Error Category Breakdown</div>
+                  <div style="height: 180px; position: relative;">
+                    <canvas id="errorCategoryChart"></canvas>
+                  </div>
+                </div>
+                <div>
+                  <div class="card-title" style="font-size: 0.95rem; margin-bottom: 0.75rem;">Syllabus Status Summary</div>
+                  <div style="height: 180px; position: relative;">
+                    <canvas id="syllabusProgressChart"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right block: Active targets preview -->
+            <div class="dashboard-card" style="display: flex; flex-direction: column;">
+              <div class="card-title">
+                <span>Active Targets (July 18)</span>
+                <button class="btn btn-secondary" onclick="window.CAT_APP.switchPage('execution')" style="font-size: 0.75rem; padding: 0.25rem 0.5rem;">View Full</button>
+              </div>
+              <div class="timeline-summary" style="margin-bottom: 1.5rem;">
+                <div class="form-group" style="margin-bottom: 0.5rem;">
+                  <div class="card-title" style="font-size: 0.85rem; margin-bottom: 0.25rem;" id="dashSyllabusPercent">0% Completed</div>
+                  <div style="width: 100%; height: 6px; background-color: var(--border-color); border-radius: 9999px; overflow: hidden;">
+                    <div id="dashSyllabusProgressBar" style="width: 0%; height: 100%; background-color: var(--color-green);"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-title" style="font-size: 0.95rem; margin-bottom: 0.75rem;">Timetable View</div>
+              <div id="dashTaskPreviewList" style="flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 0.75rem;">
+                <!-- Filled dynamically by app.js -->
+              </div>
+            </div>
+          </div>
+
+          <!-- B-School Call Predictor Card -->
+          <div class="dashboard-card" style="margin-top: 1.5rem;">
+            <div class="card-title">
+              <span>IIM & B-School Interview Call Predictor (CAT 2026-27 Criteria)</span>
+              <span class="tag tag-indigo">Dynamic Simulator</span>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+              Simulate or load your overall and sectional percentiles to view eligible interview calls from IIMs, IITs, and top private management institutes.
+            </p>
+            
+            <div class="predictor-split-layout">
+              <!-- Left: Sliders Panel -->
+              <div class="predictor-sliders-panel">
+                <div class="slider-group">
+                  <div class="slider-label-row">
+                    <span>Overall Percentile:</span>
+                    <b id="valOverall">90.00%</b>
+                  </div>
+                  <input type="range" id="sliderOverall" min="70.00" max="100.00" step="0.05" value="90.00" class="range-slider">
+                </div>
+                
+                <div class="slider-group">
+                  <div class="slider-label-row">
+                    <span>VARC Sectional Percentile:</span>
+                    <b id="valVARC">90.00%</b>
+                  </div>
+                  <input type="range" id="sliderVARC" min="70.00" max="100.00" step="0.05" value="90.00" class="range-slider">
+                </div>
+                
+                <div class="slider-group">
+                  <div class="slider-label-row">
+                    <span>DILR Sectional Percentile:</span>
+                    <b id="valDILR">90.00%</b>
+                  </div>
+                  <input type="range" id="sliderDILR" min="70.00" max="100.00" step="0.05" value="90.00" class="range-slider">
+                </div>
+                
+                <div class="slider-group">
+                  <div class="slider-label-row">
+                    <span>QA Sectional Percentile:</span>
+                    <b id="valQA">90.00%</b>
+                  </div>
+                  <input type="range" id="sliderQA" min="70.00" max="100.00" step="0.05" value="90.00" class="range-slider">
+                </div>
+                
+                <button class="btn btn-secondary" id="loadLatestScoresBtn" style="width: 100%; margin-top: 0.75rem; font-size: 0.85rem; padding: 0.5rem;">
+                  Load Scores from Latest Mock
+                </button>
+              </div>
+              
+              <!-- Right: Results Panel -->
+              <div class="predictor-results-panel">
+                <div class="results-column">
+                  <div class="results-heading">Eligible Interview Calls (<span id="eligibleCallsCount">0</span>)</div>
+                  <div class="chips-grid" id="eligibleCallsGrid">
+                    <!-- Dynamic chips -->
+                  </div>
+                </div>
+                
+                <div class="results-column">
+                  <div class="results-heading">Missed Cutoffs (<span id="missedCallsCount">0</span>)</div>
+                  <div class="chips-grid" id="missedCallsGrid">
+                    <!-- Dynamic chips -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Strategic Guidance Panel -->
+            <div class="predictor-guidance-box" id="predictorGuidanceBox">
+              <!-- Dynamic advice text -->
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 2: MASTER SYLLABUS TRACKER -->
+        <div id="syllabusPage" class="page-view hidden">
+          <div class="syllabus-tabs">
+            <button class="syllabus-tab-btn active" id="tab-btn-qa">Quantitative Aptitude (QA)</button>
+            <button class="syllabus-tab-btn" id="tab-btn-dilr">Data Interpretation & LR (DILR)</button>
+            <button class="syllabus-tab-btn" id="tab-btn-varc">Verbal Ability & RC (VARC)</button>
+            <!-- NEW SECTIONALS & MOCKS TABS -->
+            <button class="syllabus-tab-btn" id="tab-btn-sectionals">Sectional Tests</button>
+            <button class="syllabus-tab-btn" id="tab-btn-mocks">Full Mocks</button>
+          </div>
+
+          <!-- QA Panel -->
+          <div id="panel-qa" class="syllabus-panel">
+            <div class="syllabus-list" id="syllabus-qa-list"></div>
+          </div>
+
+          <!-- DILR Panel -->
+          <div id="panel-dilr" class="syllabus-panel hidden">
+            <div class="syllabus-list" id="syllabus-dilr-list"></div>
+          </div>
+
+          <!-- VARC Panel -->
+          <div id="panel-varc" class="syllabus-panel hidden">
+            <div class="syllabus-list" id="syllabus-varc-list"></div>
+          </div>
+
+          <!-- NEW Sectionals Panel -->
+          <div id="panel-sectionals" class="syllabus-panel hidden">
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">
+              Attempt timed subject-specific sectionals. Submitted sectionals automatically log to your diagnostics logs.
+            </p>
+            <div class="syllabus-list" id="syllabus-sectionals-list">
+              <!-- Filled dynamically by app.js -->
+            </div>
+          </div>
+
+          <!-- NEW Full Mocks Panel -->
+          <div id="panel-mocks" class="syllabus-panel hidden">
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">
+              Take full 3-section simulated CAT exams. These attempts affect your dashboard graphs and populate the error notebook.
+            </p>
+            <div class="syllabus-list" id="syllabus-mocks-list">
+              <!-- Filled dynamically by app.js -->
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 3: DAILY EXECUTION SHEET -->
+        <div id="executionPage" class="page-view hidden">
+          <div class="execution-controls">
+            <button class="execution-nav-btn" id="execPrevDayBtn">← Previous Day</button>
+            <span id="executionDayTitle">July 18, 2026</span>
+            <div style="display: flex; gap: 0.5rem;">
+              <button class="btn btn-secondary" id="openSchedulerModalBtn">
+                <i data-lucide="settings" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle; margin-right: 0.25rem;"></i>Config
+              </button>
+              <button class="execution-nav-btn" id="execNextDayBtn">Next Day →</button>
+            </div>
+          </div>
+
+          <div class="execution-tasks-container" id="executionTasksList">
+            <!-- Dynamic task rows filled by app.js -->
+          </div>
+        </div>
+
+        <!-- NEW TAB: PROBLEM SOLVER -->
+        <div id="solverPage" class="page-view hidden">
+          <div class="solver-layout-grid">
+            
+            <!-- Left inputs panel -->
+            <div class="dashboard-card" style="display: flex; flex-direction: column; gap: 1.5rem;">
+              <div class="card-title">
+                <span>Upload Question Sheet</span>
+                <span class="tag tag-qa">CAT 100%er Brain</span>
+              </div>
+              
+              <!-- File Drag and drop zone -->
+              <div class="solver-drop-zone" id="solverDropZone">
+                <i data-lucide="file-up" class="drop-zone-icon"></i>
+                <p class="drop-zone-text">Drag & drop question file here</p>
+                <span class="drop-zone-sub">Supports .txt, .md, .csv, .json</span>
+                <input type="file" id="solverFileInput" accept=".txt,.md,.csv,.json" style="display: none;">
+              </div>
+
+              <!-- Manual question input text box -->
+              <div class="form-group" style="flex: 1; display: flex; flex-direction: column;">
+                <label for="solverTextArea" style="margin-bottom: 0.5rem; font-weight: 600;">Or Paste Question Text:</label>
+                <textarea id="solverTextArea" placeholder="Type or paste question statement here (e.g. 'A water tank contains 200 gallons...')" style="flex: 1; min-height: 120px;"></textarea>
+              </div>
+
+              <div style="display: flex; gap: 1rem;">
+                <button class="btn btn-secondary" id="clearSolverBtn" style="flex: 1;">Clear</button>
+                <button class="btn btn-primary" id="triggerSolveBtn" style="flex: 1.5;">Get 100%er Shortcut</button>
+              </div>
+
+              <!-- Sample File Preset Trigger Buttons -->
+              <div>
+                <label style="font-size: 0.75rem; font-weight: 700; color: var(--text-light); text-transform: uppercase; display: block; margin-bottom: 0.5rem;">Select Preset Sample Files:</label>
+                <div class="solver-presets-container">
+                  <button class="preset-btn" data-file="percentages_trap.txt">Percentages Trap.txt</button>
+                  <button class="preset-btn" data-file="venn_diagram_set.txt">Venn Diagram Set.txt</button>
+                  <button class="preset-btn" data-file="logarithms_equation.txt">Logarithms Eq.txt</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Terminal solving dashboard -->
+            <div class="solver-console-card">
+              <div class="console-header">
+                <div class="console-controls">
+                  <span class="dot red"></span>
+                  <span class="dot yellow"></span>
+                  <span class="dot green"></span>
+                </div>
+                <span class="console-title">EXPERTCAT_SOLVER_TERMINAL</span>
+              </div>
+              <div class="console-body" id="solverTerminal">
+                <div class="terminal-line"><span class="line-prompt">></span> System Initialized. Awaiting question sheet upload or text input...</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- TAB 4: MOCK DIAGNOSTICS & SECTIONALS -->
+        <div id="mocksPage" class="page-view hidden">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+            <h3 style="font-family: var(--font-display); font-weight: 600; font-size: 1.25rem;">Diagnostic Test Analytics</h3>
+            <button class="btn btn-primary" id="openLogMockModalBtn">Log Attempt</button>
+          </div>
+
+          <div class="mock-split-layout">
+            <!-- Left side: History log -->
+            <div>
+              <div class="card-title" style="font-size: 1rem; margin-bottom: 1rem;">Attempts History</div>
+              <div id="mockHistoryList">
+                <!-- Dynamic mock records list -->
+              </div>
+            </div>
+            <!-- Right side: Diagnostics patterns -->
+            <div>
+              <div class="card-title" style="font-size: 1rem; margin-bottom: 1rem;">Pattern Analysis & Insights</div>
+              <div id="mockDiagnosticsContainer">
+                <!-- Filled dynamically by analysis.js -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 5: ERROR NOTEBOOK -->
+        <div id="errorsPage" class="page-view hidden">
+          <div class="error-filters-bar">
+            <div class="error-filter-inputs">
+              <select class="status-select" id="errorSectionFilter" style="width: 140px;">
+                <option value="All">All Sections</option>
+                <option value="QA">QA</option>
+                <option value="DILR">DILR</option>
+                <option value="VARC">VARC</option>
+              </select>
+              <input type="text" class="error-search-input" id="errorSearchInput" placeholder="Search by topic, keyword...">
+            </div>
+            <div style="font-size: 0.85rem; color: var(--text-light);">
+              Resolve errors to mark them resolved and build confidence.
+            </div>
+          </div>
+
+          <div class="notebook-table-container">
+            <table class="notebook-table">
+              <thead>
+                <tr>
+                  <th>Section</th>
+                  <th>Topic</th>
+                  <th>Question Preview</th>
+                  <th>Mistake Reason</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="errorNotebookBody">
+                <!-- Filled dynamically by errorbook.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- TAB 6: REVISION HUB -->
+        <div id="revisionPage" class="page-view hidden">
+          <div class="revision-grid">
+            <!-- Sunday list -->
+            <div class="dashboard-card">
+              <div class="card-title" style="border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">
+                <span>Sunday Revision Timetable</span>
+                <span class="tag tag-revision">Weekly Sunday</span>
+              </div>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">
+                Revisit these items every Sunday. Includes dynamically populated weak areas and errors.
+              </p>
+              <div id="sundayRevisionList">
+                <!-- Checklist rows populated dynamically -->
+              </div>
+            </div>
+
+            <!-- Monthly list -->
+            <div class="dashboard-card">
+              <div class="card-title" style="border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">
+                <span>Monthly Strategic Audit</span>
+                <span class="tag tag-qa">Monthly Cycle</span>
+              </div>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">
+                Perform these reviews every 30 days to check prep strategy correctness.
+              </p>
+              <div id="monthlyRevisionList">
+                <!-- Checklist rows populated dynamically -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 8: PROFILE & SYNC MANAGER -->
+        <div class="page-view hidden" id="profilePage">
+          <div class="dashboard-grid" style="grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; display: grid;">
+            
+            <!-- Cloud Sync Management Card -->
+            <div class="dashboard-card">
+              <div class="card-title">
+                <span>Supabase Cloud Integration</span>
+                <span class="tag tag-indigo" id="syncStatusBadge">Offline</span>
+              </div>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+                Backup and sync your CAT Prep Buddy database tables with your personal cloud account.
+              </p>
+              
+              <div class="sync-account-info" style="background: var(--bg-page); border: 1px solid var(--border-color); padding: 1rem; border-radius: 8px; font-size: 0.85rem; margin-bottom: 1.25rem;">
+                <div style="margin-bottom: 0.35rem;"><b>Aspirant:</b> <span id="syncUserEmail" style="color: var(--color-indigo); font-weight: 600;">Not Logged In</span></div>
+                <div><b>Status:</b> <span id="syncModeText" style="color: var(--text-muted);">Offline Mode</span></div>
+              </div>
+              
+              <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                <button class="btn btn-primary" id="btnUploadSync" style="width: 100%;">
+                  Backup Data to Cloud
+                </button>
+                <button class="btn btn-secondary" id="btnDownloadSync" style="width: 100%;">
+                  Restore Data from Cloud
+                </button>
+                <button class="btn btn-secondary" id="btnUserLogout" style="width: 100%; border-color: var(--color-rose); color: var(--color-rose); margin-top: 0.5rem;">
+                  Sign Out Account
+                </button>
+              </div>
+            </div>
+
+            <!-- Personal B-School Profile Config Card -->
+            <div class="dashboard-card">
+              <div class="card-title">
+                <span>B-School Aspirant Profile</span>
+                <span class="tag tag-blue">Sync Available</span>
+              </div>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+                Configure your personal details, target percentile, and study capacity to update your dashboard recommendations.
+              </p>
+              
+              <div style="display: flex; flex-direction: column; gap: 0.85rem;">
+                <div>
+                  <label style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 0.25rem;">Full Name:</label>
+                  <input type="text" id="profileName" class="tita-input" style="width: 100%;" placeholder="Aspirant Name">
+                </div>
+                
+                <div>
+                  <label style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 0.25rem;">Email Address:</label>
+                  <input type="email" id="profileEmail" class="tita-input" style="width: 100%;" placeholder="aspirant@iim.edu">
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+                  <div>
+                    <label style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 0.25rem;">Date of Birth:</label>
+                    <input type="date" id="profileDOB" class="tita-input" style="width: 100%;">
+                  </div>
+                  <div>
+                    <label style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 0.25rem;">Work Ex (Months):</label>
+                    <input type="number" id="profileWorkExp" min="0" class="tita-input" style="width: 100%;" placeholder="e.g. 24">
+                  </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+                  <div>
+                    <label style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 0.25rem;">Field of Study:</label>
+                    <select id="profileFieldOfStudy" class="tita-input" style="width: 100%; padding: 0.45rem;">
+                      <option value="Engineering">Engineering</option>
+                      <option value="Commerce">Commerce / BBA</option>
+                      <option value="Science">Science / BCA</option>
+                      <option value="Humanities">Humanities / Arts</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 0.25rem;">Target Percentile:</label>
+                    <input type="number" id="profileTargetPercentile" min="70" max="100" step="0.05" class="tita-input" style="width: 100%;" value="99.00">
+                  </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+                  <div>
+                    <label style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 0.25rem;">Target Exam Date:</label>
+                    <input type="date" id="profileExamDate" class="tita-input" style="width: 100%;">
+                  </div>
+                  <div>
+                    <label style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 0.25rem;">Study Capacity (Hrs):</label>
+                    <input type="number" id="profileDailyHours" min="1" max="12" class="tita-input" style="width: 100%;">
+                  </div>
+                </div>
+                
+                <button class="btn btn-primary" id="btnSaveProfileSettings" style="width: 100%; margin-top: 0.5rem;">
+                  Save Preferences & Sync
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </section>
+    </main>
+
+  </div>
+
+  <!-- ==================== MODALS INJECTIONS ==================== -->
+
+  <!-- A. Practice Drill / Timed Mock Modal -->
+  <div class="modal-container hidden" id="practiceModal">
+    <div class="modal-overlay"></div>
+    <div class="modal-box" id="testModalContainer" style="max-width: 900px; width: 95%;">
+      <div class="modal-header">
+        <h4 class="modal-title" id="practiceModalTitle">Practice Drill</h4>
+        
+        <!-- Timed Mock Header values -->
+        <div class="test-header-timer hidden" id="testHeaderTimer">
+          <i data-lucide="timer" style="width: 18px; height: 18px; color: var(--color-rose);"></i>
+          <span id="testTimerText">Time Remaining: 00:00</span>
+        </div>
+
+        <button class="modal-close-btn">&times;</button>
+      </div>
+      
+      <!-- Interactive Exam Mode Split Layout -->
+      <div class="test-split-body" id="testSplitBody" style="display: none;">
+        <!-- Left side question numbers navigator -->
+        <div class="test-navigator-panel">
+          <div class="navigator-title">Question Grid</div>
+          <div class="navigator-grid" id="testNavigatorGrid">
+            <!-- Dynamic button index numbers -->
+          </div>
+          <div class="navigator-legend">
+            <span class="legend-item"><span class="legend-color legend-not-visited"></span> Unvisited</span>
+            <span class="legend-item"><span class="legend-color legend-visited"></span> Visited</span>
+            <span class="legend-item"><span class="legend-color legend-answered"></span> Answered</span>
+            <span class="legend-item"><span class="legend-color legend-marked"></span> Marked</span>
+          </div>
+        </div>
+
+        <!-- Right side question frame -->
+        <div class="test-question-frame">
+          <div class="test-question-header">
+            <span class="test-question-index" id="testQuestionIndex">Question 1 of 5</span>
+            <span class="difficulty-badge" id="testQuestionDifficulty">CAT Level</span>
+          </div>
+          
+          <div class="test-question-scroll-body">
+            <div class="test-question-content" id="testQuestionContent">
+              <!-- Question text goes here -->
+            </div>
+            <div class="test-options-group" id="testOptionsGroup">
+              <!-- MCQs or TITA -->
+            </div>
+          </div>
+          
+          <div class="test-actions-bar">
+            <button class="btn btn-secondary" id="testPrevBtn">Previous</button>
+            <button class="btn btn-secondary" id="testMarkBtn" style="color: var(--color-blue); border-color: var(--color-blue-light);">Mark for Review</button>
+            <button class="btn btn-primary" id="testNextBtn">Save & Next</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Standard Practice / Scorecard Body -->
+      <div class="modal-body" id="standardModalBody">
+        <!-- Result banner showing score and recommendation -->
+        <div id="practiceResultsContainer" class="hidden"></div>
+        <!-- Questions list -->
+        <div id="practiceQuestionsContainer"></div>
+      </div>
+      
+      <div class="modal-footer" id="testModalFooter">
+        <button class="btn btn-secondary modal-close-btn" id="testCancelBtn">Cancel</button>
+        <button class="btn btn-primary" id="submitPracticeBtn">Submit Attempt</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- B. Auto Scheduler Modal -->
+  <div class="modal-container hidden" id="schedulerModal">
+    <div class="modal-overlay"></div>
+    <div class="modal-box" style="max-width: 500px;">
+      <div class="modal-header">
+        <h4 class="modal-title">Config Auto-Scheduler</h4>
+        <button class="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="schedDailyHours">Daily Study Hours:</label>
+          <input type="number" id="schedDailyHours" min="1" max="12" value="3">
+        </div>
+        <div class="form-group">
+          <label for="schedExamDate">Exam Target Date (CAT):</label>
+          <input type="date" id="schedExamDate" value="2026-11-29">
+        </div>
+        <div class="form-group">
+          <label>Identify Strong Sections (Saves time here):</label>
+          <div class="checkbox-grid">
+            <label class="checkbox-label-item"><input type="checkbox" class="sched-strength-cb" value="QA"> QA</label>
+            <label class="checkbox-label-item"><input type="checkbox" class="sched-strength-cb" value="DILR"> DILR</label>
+            <label class="checkbox-label-item"><input type="checkbox" class="sched-strength-cb" value="VARC"> VARC</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Identify Weak Sections (Allocates more practice):</label>
+          <div class="checkbox-grid">
+            <label class="checkbox-label-item"><input type="checkbox" class="sched-weakness-cb" value="QA"> QA</label>
+            <label class="checkbox-label-item"><input type="checkbox" class="sched-weakness-cb" value="DILR"> DILR</label>
+            <label class="checkbox-label-item"><input type="checkbox" class="sched-weakness-cb" value="VARC"> VARC</label>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary modal-close-btn">Cancel</button>
+        <button class="btn btn-primary" id="saveSchedulerConfigBtn">Re-Schedule Timeline</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- C. Manual Mock Log Modal -->
+  <div class="modal-container hidden" id="mockLogModal">
+    <div class="modal-overlay"></div>
+    <div class="modal-box" style="max-width: 550px;">
+      <div class="modal-header">
+        <h4 class="modal-title">Log Mock/Sectional Score</h4>
+        <button class="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="mockLogName">Exam Name:</label>
+          <input type="text" id="mockLogName" placeholder="e.g. SIMCAT 5, AIMCAT 202604">
+        </div>
+        <div class="form-group-row">
+          <div class="form-group">
+            <label for="mockLogType">Type:</label>
+            <select id="mockLogType">
+              <option value="Full Mock">Full Mock</option>
+              <option value="Sectional">Sectional</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="mockLogDate">Date Attempted:</label>
+            <input type="date" id="mockLogDate" value="2026-07-18">
+          </div>
+        </div>
+        <div class="form-group-row">
+          <div class="form-group">
+            <label for="mockLogQA">QA Section Score:</label>
+            <input type="number" id="mockLogQA" placeholder="Score">
+          </div>
+          <div class="form-group">
+            <label for="mockLogDILR">DILR Section Score:</label>
+            <input type="number" id="mockLogDILR" placeholder="Score">
+          </div>
+        </div>
+        <div class="form-group-row">
+          <div class="form-group">
+            <label for="mockLogVARC">VARC Section Score:</label>
+            <input type="number" id="mockLogVARC" placeholder="Score">
+          </div>
+          <div class="form-group">
+            <label for="mockLogPercentile">Overall Percentile (%):</label>
+            <input type="number" step="0.01" id="mockLogPercentile" placeholder="e.g. 98.45">
+          </div>
+        </div>
+        <div class="form-group-row">
+          <div class="form-group">
+            <label for="mockLogSilly">Silly Mistakes (count):</label>
+            <input type="number" id="mockLogSilly" value="0">
+          </div>
+          <div class="form-group">
+            <label for="mockLogConcept">Conceptual Gaps (count):</label>
+            <input type="number" id="mockLogConcept" value="0">
+          </div>
+        </div>
+        <div class="form-group-row">
+          <div class="form-group">
+            <label for="mockLogTime">Time Pressure (count):</label>
+            <input type="number" id="mockLogTime" value="0">
+          </div>
+          <div class="form-group">
+            <label for="mockLogGuess">Guessed answers (count):</label>
+            <input type="number" id="mockLogGuess" value="0">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="mockLogActionItems">Key Takeaways & Action Items:</label>
+          <textarea id="mockLogActionItems" placeholder="Write key strategic focus points here..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary modal-close-btn">Cancel</button>
+        <button class="btn btn-primary" id="saveMockLogBtn">Log Exam</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- D. Error Notebook Re-attempt Modal -->
+  <div class="modal-container hidden" id="reattemptModal">
+    <div class="modal-overlay"></div>
+    <div class="modal-box">
+      <div class="modal-header">
+        <h4 class="modal-title">Re-attempt Saved Error</h4>
+        <button class="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="reattemptQuestionText"></div>
+        <div class="reattempt-input-area">
+          <label style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 0.25rem;">Your Answer:</label>
+          <textarea id="reattemptAnswerInput" placeholder="Type your answer / working steps..."></textarea>
+        </div>
+        <div class="reattempt-solution-card hidden" id="reattemptSolutionCard"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary modal-close-btn">Close</button>
+        <button class="btn btn-primary" id="submitReattemptBtn">Submit Answer</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== SCRIPTS INJECTIONS ==================== -->
+  <script src="js/syllabus.js"></script>
+  <script src="js/scheduler.js"></script>
+  <script src="js/errorbook.js"></script>
+  <script src="js/analysis.js"></script>
+  <script src="js/kpi.js"></script>
+  <script src="js/revision.js"></script>
+  <script src="js/solver.js"></script> <!-- NEW SOLVER JS -->
+  <script src="js/supabase-config.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    // Initialize Lucide icons on page render load
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+    });
+    // Hook title adjustments during sidebar click updates
+    document.querySelectorAll('.sidebar-nav-item').forEach(item => {
+      item.addEventListener('click', function() {
+        const text = this.querySelector('span').innerText;
+        document.getElementById('currentModuleTitle').innerText = text;
+        
+        // Custom subtitles for tabs
+        const subMap = {
+          "Weekly Dashboard": "Visualizes RCs, DILRs, Mocks, accuracy rates and errors.",
+          "Syllabus Tracker": "Expand topics to learn and practice. Take sectionals and full mocks.",
+          "Execution Sheet": "Track daily targets and reschedule study timelines dynamically.",
+          "Problem Solver": "Upload files or paste questions for 100-percentiler shortcut feedback.",
+          "Mock Diagnostics": "Deep-dives into mock scores, capturing conceptual and time pressure patterns.",
+          "Error Notebook": "Review, search, and re-attempt past incorrect questions.",
+          "Revision Hub": "Dynamic weekly checklists covering weak areas and formula sessions.",
+          "My Profile": "Manage account session, backup cloud database, and adjust study parameters."
+        };
+        document.getElementById('currentModuleSubtitle').innerText = subMap[text] || "Track progress, practice drills, and succeed.";
+
+        setTimeout(() => {
+          lucide.createIcons();
+        }, 30);
+      });
+    });
+  </script>
+</body>
+</html>
