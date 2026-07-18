@@ -14,7 +14,8 @@ CREATE TABLE IF NOT EXISTS public.user_profiles (
   daily_hours NUMERIC DEFAULT 3.0,
   strengths TEXT[] DEFAULT '{}'::TEXT[],
   weaknesses TEXT[] DEFAULT '{}'::TEXT[],
-  exam_date DATE DEFAULT '2026-11-29'
+  exam_date DATE DEFAULT '2026-11-29',
+  aspirant_level TEXT DEFAULT 'Beginner'
 );
 
 -- Enable RLS for Profiles

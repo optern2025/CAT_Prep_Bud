@@ -31,7 +31,8 @@ document.addEventListener('DOMContentLoaded', function() {
           examDate: "2026-11-29",
           dailyHours: 3,
           strengths: ["VARC"],
-          weaknesses: ["QA"]
+          weaknesses: ["QA"],
+          aspirantLevel: "Beginner"
         };
         localStorage.setItem('cat_scheduler_config', JSON.stringify(defaultConfig));
         const schedule = window.CAT_SCHEDULER.generateSchedule(defaultConfig);
@@ -307,6 +308,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const field = document.getElementById('profileFieldOfStudy').value;
       const targetPct = parseFloat(document.getElementById('profileTargetPercentile').value) || 99.0;
       const schedConfig = JSON.parse(localStorage.getItem('cat_scheduler_config') || '{}');
+      const aspirantLevel = document.getElementById('profileAspirantLevel')?.value || schedConfig.aspirantLevel || "Beginner";
       
       // Save locally
       localStorage.setItem('cat_user_profile_details', JSON.stringify({ name, email, dob, workEx, field, targetPct }));
@@ -323,6 +325,7 @@ document.addEventListener('DOMContentLoaded', function() {
         strengths: schedConfig.strengths || [],
         weaknesses: schedConfig.weaknesses || [],
         exam_date: schedConfig.examDate || '2026-11-29',
+        aspirant_level: aspirantLevel,
         updated_at: new Date()
       });
 
@@ -434,7 +437,8 @@ document.addEventListener('DOMContentLoaded', function() {
           examDate: profileData.exam_date,
           dailyHours: profileData.daily_hours,
           strengths: profileData.strengths || [],
-          weaknesses: profileData.weaknesses || []
+          weaknesses: profileData.weaknesses || [],
+          aspirantLevel: profileData.aspirant_level || "Beginner"
         };
         localStorage.setItem('cat_scheduler_config', JSON.stringify(config));
         const cal = window.CAT_SCHEDULER.generateSchedule(config);
@@ -449,6 +453,7 @@ document.addEventListener('DOMContentLoaded', function() {
           document.getElementById('profileWorkExp').value = profileDetails.workEx;
           document.getElementById('profileFieldOfStudy').value = profileDetails.field;
           document.getElementById('profileTargetPercentile').value = profileDetails.targetPct;
+          document.getElementById('profileAspirantLevel').value = config.aspirantLevel;
         }
       }
 
@@ -561,12 +566,14 @@ document.addEventListener('DOMContentLoaded', function() {
           const targetPct = parseFloat(document.getElementById('profileTargetPercentile').value) || 99.0;
           const dateVal = document.getElementById('profileExamDate').value;
           const hoursVal = parseFloat(document.getElementById('profileDailyHours').value || 3);
+          const aspirantLevel = document.getElementById('profileAspirantLevel').value;
           
           localStorage.setItem('cat_user_profile_details', JSON.stringify({ name, email, dob, workEx, field, targetPct }));
           
           const config = JSON.parse(localStorage.getItem('cat_scheduler_config') || '{}');
           config.examDate = dateVal;
           config.dailyHours = hoursVal;
+          config.aspirantLevel = aspirantLevel;
           
           localStorage.setItem('cat_scheduler_config', JSON.stringify(config));
           const schedule = window.CAT_SCHEDULER.generateSchedule(config);
@@ -654,6 +661,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const config = JSON.parse(localStorage.getItem('cat_scheduler_config') || '{}');
         document.getElementById('profileExamDate').value = config.examDate || "2026-11-29";
         document.getElementById('profileDailyHours').value = config.dailyHours || 3;
+        document.getElementById('profileAspirantLevel').value = config.aspirantLevel || "Beginner";
 
         const details = JSON.parse(localStorage.getItem('cat_user_profile_details') || '{}');
         document.getElementById('profileName').value = details.name || "";
@@ -733,6 +741,11 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
             <div class="task-preview-title">${task.title}</div>
             <div class="task-preview-desc">${task.details}</div>
+            ${task.tips ? `
+              <div class="task-tips-box" style="margin-top: 0.5rem; font-size: 0.75rem; background: rgba(99, 102, 241, 0.08); padding: 0.5rem; border-radius: 4px; border-left: 3px solid var(--color-indigo); color: #cbd5e1; line-height: 1.4;">
+                <b>💡 Tip:</b> ${task.tips}
+              </div>
+            ` : ''}
           `;
           taskPreviewContainer.appendChild(div);
         });
@@ -1712,6 +1725,11 @@ document.addEventListener('DOMContentLoaded', function() {
               </div>
               <div class="task-title-text">${task.title}</div>
               <div class="task-details-text">${task.details}</div>
+              ${task.tips ? `
+                <div class="task-tips-box" style="margin-top: 0.5rem; font-size: 0.75rem; background: rgba(99, 102, 241, 0.08); padding: 0.5rem; border-radius: 4px; border-left: 3px solid var(--color-indigo); color: #cbd5e1; line-height: 1.4;">
+                  <b>💡 Tip & Trick:</b> ${task.tips}
+                </div>
+              ` : ''}
             </div>
           `;
           tasksContainer.appendChild(div);
@@ -1770,6 +1788,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const config = JSON.parse(localStorage.getItem('cat_scheduler_config') || '{}');
         document.getElementById('schedDailyHours').value = config.dailyHours || 3;
         document.getElementById('schedExamDate').value = config.examDate || "2026-11-29";
+        document.getElementById('schedAspirantLevel').value = config.aspirantLevel || "Beginner";
         
         document.querySelectorAll('.sched-strength-cb').forEach(cb => {
           cb.checked = (config.strengths || []).includes(cb.value);
@@ -1784,6 +1803,7 @@ document.addEventListener('DOMContentLoaded', function() {
       document.getElementById('saveSchedulerConfigBtn').onclick = () => {
         const hours = parseFloat(document.getElementById('schedDailyHours').value);
         const examDate = document.getElementById('schedExamDate').value;
+        const aspirantLevel = document.getElementById('schedAspirantLevel').value;
         const strengths = [];
         document.querySelectorAll('.sched-strength-cb:checked').forEach(cb => strengths.push(cb.value));
         const weaknesses = [];
@@ -1794,7 +1814,8 @@ document.addEventListener('DOMContentLoaded', function() {
           examDate: examDate,
           dailyHours: hours,
           strengths: strengths,
-          weaknesses: weaknesses
+          weaknesses: weaknesses,
+          aspirantLevel: aspirantLevel
         };
 
         localStorage.setItem('cat_scheduler_config', JSON.stringify(newConfig));

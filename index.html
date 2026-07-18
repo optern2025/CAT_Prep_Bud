@@ -574,6 +574,15 @@
                   </div>
                 </div>
 
+                <div>
+                  <label style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 0.25rem;">Aspirant Level Track:</label>
+                  <select id="profileAspirantLevel" class="tita-input" style="width: 100%; padding: 0.45rem; margin-bottom: 0.25rem;">
+                    <option value="Beginner">Beginner (Basics & conceptual assignments)</option>
+                    <option value="Intermediate">Intermediate (Basics revision & advanced assessments)</option>
+                    <option value="Advanced">Advanced (Tricky assessments & high difficulty CAT sets)</option>
+                  </select>
+                </div>
+
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
                   <div>
                     <label style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 0.25rem;">Target Exam Date:</label>
@@ -688,6 +697,14 @@
         <div class="form-group">
           <label for="schedExamDate">Exam Target Date (CAT):</label>
           <input type="date" id="schedExamDate" value="2026-11-29">
+        </div>
+        <div class="form-group">
+          <label for="schedAspirantLevel">Aspirant Level:</label>
+          <select id="schedAspirantLevel" style="width: 100%; padding: 0.5rem; border-radius: 4px; background: var(--bg-card); color: white; border: 1px solid var(--border-color);">
+            <option value="Beginner">Beginner (Basics & conceptual assignments)</option>
+            <option value="Intermediate">Intermediate (Basics revision & advanced assessments)</option>
+            <option value="Advanced">Advanced (Tricky assessments & high difficulty CAT sets)</option>
+          </select>
         </div>
         <div class="form-group">
           <label>Identify Strong Sections (Saves time here):</label>
